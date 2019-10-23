@@ -1,19 +1,20 @@
 import React from 'react';
-import TopNav from '../components/TopNav';
-import RecruitRegister from '../components/RecruitRegister';
-import RecruitList from '../components/RecruitList';
-import Footer from '../components/Footer';
+// import TopNav from '../components/TopNav';
+// import RecruitRegister from '../components/RecruitRegister';
+// import RecruitList from '../components/RecruitList';
+// import Footer from '../components/Footer';
 import './Home.scss';
 
 const Home = () => {
     return (
         <div className="home">
-            <TopNav/>
+            ..
+            {/* <TopNav/>
             <div className="content">
                 <RecruitRegister/>
                 <RecruitList/>
             </div>
-            <Footer/>
+            <Footer/> */}
         </div>
     );
 };
