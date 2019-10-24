@@ -20,6 +20,7 @@
       <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
       <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
       <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
+      <!-- Oh hyun temp  gg-->
     </ul>
     <h3>Ecosystem</h3>
     <ul>
@@ -41,7 +42,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped" attribute to limit CSS to this component only !!! -->
 <style scoped>
 h3 {
   margin: 40px 0 0;
