@@ -39,3 +39,22 @@ router.post('/', (req, res) => {
 })
 
 module.exports = router;
+
+// const express = require('express')
+// const mongoose = require('mongoose');
+
+// const schema = require('./schema');
+
+// const app = express();
+// const port = 3000;
+
+// app.get('/', (req, res) => {
+//     res.json({
+//         msg : '안녕'
+//     })
+// })
+
+
+// app.listen(port, ()=> {
+//     console.log('GraphQL 실행')
+// })
