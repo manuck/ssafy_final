@@ -1,5 +1,10 @@
 import React from 'react';
 import './RecruitRegister.scss';
+import TopIcon from '../assets/icons/ranked-positions/Position_Challenger-Top.png';
+import JungleIcon from '../assets/icons/ranked-positions/Position_Challenger-Jungle.png';
+import MidIcon from '../assets/icons/ranked-positions/Position_Challenger-Mid.png';
+import BotIcon from '../assets/icons/ranked-positions/Position_Challenger-Bot.png';
+import SupportIcon from '../assets/icons/ranked-positions/Position_Challenger-Support.png';
 
 const RecruitRegister = () => {
     return (
@@ -10,19 +15,19 @@ const RecruitRegister = () => {
             <div className="register__content">
                 <div className="position">
                     <div className="top">
-                        top
+                        <img alt="top-icon" src={TopIcon} />
                     </div>
                     <div className="jungle">
-                        jgl
+                        <img alt="jungle-icon" src={JungleIcon} />
                     </div>
                     <div className="mid">
-                        mid
+                        <img alt="mid-icon" src={MidIcon} />
                     </div>
                     <div className="ad">
-                        ad
+                        <img alt="bot-icon" src={BotIcon} />
                     </div>
                     <div className="support">
-                        sup
+                        <img alt="support-icon" src={SupportIcon} />
                     </div>
                 </div>
                 <div className="submit">
