@@ -3,7 +3,8 @@ const Schema = mongoose.Schema
 
 const User = new Schema({
     username: { type: String, unique: true },
-    nickname: String,
+    nicknames: [String],
+    representationNickname: String,
     tiers: {
         tier: String,
         rank: String,
