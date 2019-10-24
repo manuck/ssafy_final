@@ -4,25 +4,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes');
-const apiRouter = require('./routes/api');
-const graphqlRouter = require('./graphql')
 const db = require('./database')
-
-//
-const graphqlHTTP = require('express-graphql');
-const { buildSchema } = require('graphql');
-
-const schema = buildSchema(`
-type Query {
-  hello: String
-}
-`);
-
-const root = {hello: () => `hello world!`};
-//
-
-
-
+const bodyParser = require('body-parser');
+const schemas = require('./schemas/schema');
 
 var app = express();
 
@@ -32,20 +16,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/api', apiRouter);
-//app.use('/graphql', graphqlRouter);
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
+app.get('/users', (req, res, next) => {
+  User.find({}).exec((_err, _res) => res.json(_res));
+});
 
-//
-app.use('/graphql', graphqlHTTP({
-    schema: schema,
-    rootValue: root,
-    graphiql: true,
-  }));
-  app.listen(4000, () => console.log('Now browse to localhost:4000/graphql'));
-//
-
+app.listen(4000, () => {
+  console.log('listening ....');
+});
 // db 연결
 db.connectDB();
 module.exports = app;

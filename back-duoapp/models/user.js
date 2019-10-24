@@ -18,18 +18,3 @@ const User = new Schema({
 })
 
 module.exports = mongoose.model('User', User)
-
-// const UserSchema = new Schema({
-//     name: {
-//         type: String,
-//         required: true
-//     },
-//     age: {
-//         type: Number
-//     },
-//     gender: {
-//         type: String
-//     }
-// });
-
-// export default mongoose.model('user', UserSchema);
