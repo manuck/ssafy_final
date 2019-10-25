@@ -23,7 +23,7 @@ router.get(
                     res.redirect('/')
                 }
                 res.cookie('MnMsToken', token, { maxAge: 3600 * 1000 * 3 })
-                res.status(200).json({ success: true })
+                res.status(200).json({ success: true, user: req.user })
             }
         )
     }

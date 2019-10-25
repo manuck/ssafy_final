@@ -22,7 +22,7 @@ exports.init = (passport) => {
         },
         (accessToken, refreshToken, profile, done) => {
 
-            User.findOne({ id: profile.id }, (err, user) => {
+            User.findOrCreate({ username: profile.emails[0].value }, (err, user) => {
                 return done(err, user);
             })
 
