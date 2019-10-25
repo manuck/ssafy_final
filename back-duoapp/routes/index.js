@@ -22,6 +22,15 @@ router.use('/api', apiRouter);
 router.get('/test', (req, res) => {
     // lolAPI.makeGetRequest();
     let info = lolAPI.getLOLData();
+    const myid = "5db253811c9d4400000f213a"
+    // const nowUser = User.findById(`${myid}`)
+    // console.log(nowUser)
+    // const nowUser = User.findOne({_id:myid})
+    User.find({_id:myid},function(err,data){
+        if (err) return handleError(err);
+        console.log('find all data => ',data)
+    })
+    // console.log(nowUser)
     res.json({'이이이잉':'앗살라마라이쿰'})
 })
 
