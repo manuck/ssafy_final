@@ -1,12 +1,14 @@
 const axios = require('axios');
-mykey = 'RGAPI-9b9294d2-f8b6-44ce-bc1e-4dbaf7b41ea3'
+mykey = 'RGAPI-e8b34997-cb52-4b95-a6f7-0cc78f5674eb'
 
 exports.getLOLData = function () {
     // let recentlyGame = [[],[],[],[],[]]
     let summonerUrl, matchUrl, leagueUrl; 
-    summonerUrl = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/마눅?api_key=${mykey}`
+    let nickname = "마눅마눅"
+    summonerUrl = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${nickname}?api_key=${mykey}`
     axios.get(encodeURI(summonerUrl))
     .then( summonerData => { 
+        console.log(200)
         console.log(summonerData.data)
         let data = summonerData.data
         // console.log(data['id'])
@@ -52,12 +54,6 @@ exports.getLOLData = function () {
                         break
                     }
                 }
-                // for (let j = 0; j < 5; j++) {
-                //     if (gamelist[j] === game){
-                //         index = j
-                //         break
-                //     }
-                // }
                 if (gameData.data['participants'][participantId-1]['stats']['win'] === true) {
                     // console.log('승리')
                     // console.log(gameData.data['participants'][participantId-1]['championId'])
@@ -90,6 +86,21 @@ exports.getLOLData = function () {
         })
            
     }).catch (error => {
-        console.error(error)
+        // console.error(error)
+        console.log('닉네임이 없어요*******************************')
+        return false
     })
+}
+
+
+exports.hasNickname = async function (nick) {
+    summonerUrl = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${nick}?api_key=${mykey}`
+    try {   
+        const res = await axios.get(encodeURI(summonerUrl))
+        console.log(res)
+        return true
+    }
+    catch(e) {
+        return false
+    }
 }

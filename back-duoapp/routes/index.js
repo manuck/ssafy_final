@@ -19,30 +19,36 @@ router.get('/authtest', authCheck, async(req, res) => {
 });
 router.use('/api', apiRouter);
 
-router.get('/test', (req, res) => {
+router.get('/test', async (req, res) => {
     // lolAPI.makeGetRequest();
-    let info = lolAPI.getLOLData();
+    const isInfo = await lolAPI.hasNickname('마눅')
+    console.log(isInfo)
+
+    // lolAPI.getLOLData().then(function (info) {
+    //     console.log('닉네임 상태?')
+    //     console.log(info)
+    // });
+    
     const myid = "5db253811c9d4400000f213a"
     // const nowUser = User.findById(`${myid}`)
     // console.log(nowUser)
     // const nowUser = User.findOne({_id:myid})
-
-    // const nsm = User.find({_id:myid},function(err,data){
-    //     if (err) return handleError(err);
-    //     console.log('find all data => ',data)
-    //     // data[0]['mytier']['tier'] = '플래티넘'
-    //     console.log(data[0]['tiers'])
-    //     // User.nickname = '무적꼬부기짱짱짱'
-    //     return data[0] 
-    // })
-    User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
-    function(err, res) {
+    User.find({_id:myid},function(err,data){
+        if (err) return handleError(err);
+        console.log('find all data => ',data)
+        // data[0]['mytier']['tier'] = '플래티넘'
+        console.log(data[0]['tiers'])
+        // User.nickname = '무적꼬부기짱짱짱'
+        return data[0] 
+    })
+    // User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
+    // function(err, res) {
         // if (err) { 
         //     callback(err, null);
         // } else { 
         //     callback(null, res);
         // }
-    });
+    // });
 
 
     // console.log('---------------------')
