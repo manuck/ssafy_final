@@ -3,7 +3,8 @@ const Schema = mongoose.Schema
 
 const User = new Schema({
     username: { type: String, unique: true },
-    nickname: String,
+    nicknames: [String],
+    representationNickname: String,
     tiers: {
         tier: String,
         rank: String,
@@ -12,6 +13,15 @@ const User = new Schema({
     majorPosition: String,
     minorPosition: String,
     apiUpdatedAt: Date,
+    recentgame: [
+        {
+            win: Boolean,
+            kills: Number,
+            deaths: Number,
+            assists: Number,
+            champion: Number
+        }
+    ]
 }, {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 })
