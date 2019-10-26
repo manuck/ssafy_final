@@ -24,8 +24,9 @@ router.get(
                     console.log('토큰 생성 실패: ', err)
                     res.redirect('/')
                 }
-                // res.cookie('MnMsToken', token, { maxAge: 3600 * 1000 * 3 })
-                res.status(200).json({token:token});
+                res.cookie('MnMsToken', token, { maxAge: 3600 * 1000 * 3 })
+                res.redirect(config.frontURL)
+                // res.status(200).json({token:token});
             }
         )
     }
