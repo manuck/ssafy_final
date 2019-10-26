@@ -14,7 +14,7 @@ const Login = () => {
 
     return (
         <div className="google__login">
-            <a href="https://localhost:4000/api/auth/google" className="login__button">
+            <a href="localhost:4000/api/auth/google" className="login__button">
                 구글로 로그인하기
             </a>
             {/* <button onClick={callLoginApi} className="login__button">
