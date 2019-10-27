@@ -5,7 +5,7 @@ const mongoDB = config[env].mongodbUri;
 
 //Set up default mongoose connection
 exports.connectDB = () => {
-    mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+    mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false}, (err) => {
         if (err) {
             console.error('mongodb connection error', err)
         } else {
