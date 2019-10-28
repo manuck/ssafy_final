@@ -71,8 +71,8 @@ exports.getLOLData = async function (nick) {
         }).catch (error => {
             console.error(error)
         })
-        return {tiers, recentGame}
-    }) 
+            return {tiers, recentGame}
+        }) 
         return allData
     }   
     catch(e) {

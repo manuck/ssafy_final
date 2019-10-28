@@ -30,10 +30,10 @@ router.get('/test', async (req, res) => {
         console.log('닉넴 있음')
         console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
         // console.log(data)
-        console.log(data['tiers'][0])
-        console.log(data['tiers'][1])
-        console.log(data['tiers'][2])
-        console.log(data['recentGame'])
+        console.log(data['tiers'][0])   // tier
+        console.log(data['tiers'][1])   // rank
+        console.log(data['tiers'][2])   // leaguePoint
+        console.log(data['recentGame']) // 최근 5게임(list[승패, kills, deaths, assists, champion])
         console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     }
     else {
