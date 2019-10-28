@@ -16,6 +16,10 @@ router.get('/authtest', authCheck, async(req, res) => {
     // console.log('로그인 성공')
     const user = await User.findById(_id);
     res.json(user);
+    
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('index', { title: 'Express' });
 });
 router.use('/api', apiRouter);
 
@@ -60,23 +64,3 @@ router.get('/test', async (req, res) => {
 })
 
 module.exports = router;
-
-
-// app.put('url', (req, res) => {
-
-//     const modelId = req.body.model_id;
-//     const newName = req.body.name;
-
-//     MyModel.findById(modelId).then((model) => {
-//         return Object.assign(model, {name: newName});
-//     }).then((model) => {
-//         return model.save();
-//     }).then((updatedModel) => {
-//         res.json({
-//             msg: 'model updated',
-//             updatedModel
-//         });
-//     }).catch((err) => {
-//         res.send(err);
-//     });
-// });
