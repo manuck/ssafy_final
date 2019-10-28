@@ -3,31 +3,31 @@ import './Recruit.scss';
 
 const Recruit = () => {
     return (
-        <div class="recruit__each">
-            <div class="column1">
-                <div class="tier">
+        <div className="recruit__each">
+            <div className="column1">
+                <div className="tier">
                     tier
                 </div>
-                <div class="position">
+                <div className="position">
                     position
                 </div>
-                <div class="nickname">
+                <div className="nickname">
                     nickname
                 </div>
             </div>
-            <div class="column2">
-                <div class="records">
+            <div className="column2">
+                <div className="records">
                     records
                 </div>
             </div>
-            <div class="column3">
-                <div class="status">
+            <div className="column3">
+                <div className="status">
                     status
                 </div>
-                <div class="time">
+                <div className="time">
                     created_time
                 </div>
-                <div class="submit">
+                <div className="submit">
                     신청
                 </div>
             </div>

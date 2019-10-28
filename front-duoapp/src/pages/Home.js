@@ -1,5 +1,5 @@
 import React from 'react';
-import TopNav from '../components/TopNav';
+import TopNav from '../components/nav/TopNav';
 import RecruitRegister from '../components/RecruitRegister';
 import RecruitList from '../components/RecruitList';
 import Footer from '../components/Footer';
