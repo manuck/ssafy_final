@@ -1,5 +1,5 @@
 const axios = require('axios');
-mykey = 'RGAPI-e8b34997-cb52-4b95-a6f7-0cc78f5674eb'
+mykey = 'RGAPI-cbe05a9f-d12e-4ceb-bf07-821755e68a8f'
 
 exports.getLOLData = function () {
     // let recentlyGame = [[],[],[],[],[]]
