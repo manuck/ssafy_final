@@ -1,93 +1,81 @@
-// const { buildSchema } = require('graphql')
-
-// module.exports = buildSchema(`
-//     type Recruitment {
-//         _id: ID!
-//         user : ID!
-//         position: String!
-//         status: Boolean!
-//     }
-
-//     type User {
-//         _id: ID!
-//         username: String!
-//         nicknames: [String]
-//         representationNickname: String!
-//         tiers: {
-//             tier: String!
-//             rank: String!
-//             leaguePoint: Int!
-//         }
-//         majorPosition: String!
-//         minorPosition: String!
-//         apiUpdatedAt: String!
-//     }
-
-//     input RecruitmentInput {
-//         user : ID!
-//         position: String!
-//     }
-
-//     input UserInput {
-//         username: String!
-//         nicknames: [String!]
-//         representationNickname: String!
-//         tiers: {
-//             tier: String!
-//             rank: String!
-//             leaguePoint: Int!
-//         }
-//         majorPosition: String!
-//         minorPosition: String!
-//         apiUpdatedAt: String!
-//     }
-
-//     type RootQuery {
-//         users: [User!]!
-//     }
-//     type RootMutation {
-//         createRecruitment(recruitmentInput: RecruitmentInput): Recruitment
-//         createUser(userInput: UserInput): User
-//     }
-//     schema {
-//         query: RootQuery
-//         mutation: RootMutation
-//     }
-// `);
-
 const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
 type Event {
-  _id: ID!
-  title: String!
-  description: String!
-  price: Float!
-  date: String!
-  creator: User!
+    _id: ID!
+    title: String!
+    description: String!
+    price: Float!
+    date: String!
+    creator: User!
 }
 type User {
-  _id: ID!
-  email: String!
-  password: String
-  createdEvents: [Event!]
+    _id: ID!
+    username: String!
+    nicknames: [String]
+    representationNickname: String!
+    tiers: Tier!
+    majorPosition: String!
+    minorPosition: String!
+    apiUpdatedAt: String!
+    recentgame :[Game]
 }
-input EventInput {
-  title: String!
-  description: String!
-  price: Float!
-  date: String!
+type Tier {
+    tier: String!
+    rank: String!
+    leaguePoint: Int!
 }
-input UserInput {
-  email: String!
-  password: String!
+type Game {
+    win: Boolean!
+    kills: Int!
+    deaths: Int!
+    assists: Int!
+    champion: Int!
 }
+type Recruitment {
+    _id: ID!
+    position: String!
+    status: Boolean!
+}
+
+
+
+input CreateEventInput {
+    title: String!
+    description: String!
+    price: Float!
+    date: String!
+}
+input CreateUserInput {
+    username: String!
+}
+input CreateRecruitmentInput {
+    position: String!
+    status: Boolean!
+}
+input UpdateUserInput {
+    username: String!
+    nicknames: [String]
+    representationNickname: String!
+    tiers: Int
+    majorPosition: String
+    minorPosition: String
+    apiUpdatedAt: String
+    recentgame: [String]
+}
+
+
+
 type RootQuery {
     events: [Event!]!
+    users: [User!]!
+    recruitments: [Recruitment!]!
 }
 type RootMutation {
-    createEvent(eventInput: EventInput): Event
-    createUser(userInput: UserInput): User
+    createEvent(eventInput: CreateEventInput): Event
+    createUser(createUserInput: CreateUserInput): User
+    createRecruitment(recruitmentInput: CreateRecruitmentInput): Recruitment
+    updateUser(updateUserInput: UpdateUserInput): User
 }
 schema {
     query: RootQuery
