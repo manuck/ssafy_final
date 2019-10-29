@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -16,7 +16,7 @@ const config = require('./config/config.json')[env];
 const GOOGLESECRET = config.googleSecret;
 
 var app = express();
-
+app.use(cors());
 app.set('jwt-secret', config.secret)
 
 // app.use(session({

@@ -2,6 +2,19 @@ import React from 'react';
 import './Profile.scss';
 
 const Profile = () => {
+    const findName = async () => {
+        const nickname = document.querySelector('.accounts .form input').value;
+        const res = await fetch('http://localhost:4000/test', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'nickname': nickname})
+            
+        });
+        console.log(res);
+    }
     const profile = {}
     return (
         <div className="profile">
@@ -17,7 +30,7 @@ const Profile = () => {
                     <div className="form">
                         <span>계정 찾기</span>
                         <input name="nickname" type="text" />
-                        <input type="submit" value="찾기" />
+                        <button onClick={findName}>제출</button>
                     </div>
                     <div className="myaccounts">
                         계정 목록

@@ -20,12 +20,16 @@ router.get('/authtest', authCheck, async(req, res) => {
 });
 router.use('/api', apiRouter);
 
-router.get('/test', async (req, res) => {
+router.post('/test', async (req, res) => {
     // lolAPI.makeGetRequest();
     // ifInfo : true, false 닉네임이 검색되는지 확인
-    const isInfo = await lolAPI.hasNickname('마눅')
+    console.log('###############################################################################')
+    console.log(req.body['nickname'])
+    console.log('###############################################################################')
+    const search = req.body['nickname']
+    const isInfo = await lolAPI.hasNickname(search)
     if (isInfo) {
-        const data = await lolAPI.getLOLData("마눅")
+        const data = await lolAPI.getLOLData(search)
         console.log('닉넴 있음')
         console.log('------------------------------------------------------------------------')
         // console.log(data)
@@ -74,7 +78,6 @@ router.get('/test', async (req, res) => {
 })
 
 module.exports = router;
-
 
 // app.put('url', (req, res) => {
 
