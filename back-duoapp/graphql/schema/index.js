@@ -57,11 +57,24 @@ input UpdateUserInput {
     username: String!
     nicknames: [String]
     representationNickname: String!
-    tiers: Int
     majorPosition: String
     minorPosition: String
     apiUpdatedAt: String
-    recentgame: [String]
+}
+input UpdateTierInput {
+    tier: String!
+    rank: String!
+    leaguePoint: Int!
+}
+input UpdateGameInput {
+    win: Boolean!
+    kills: Int!
+    deaths: Int!
+    assists: Int!
+    champion: Int!
+}
+input SearchUserInput {
+    username: String!
 }
 
 
@@ -70,12 +83,13 @@ type RootQuery {
     events: [Event!]!
     users: [User!]!
     recruitments: [Recruitment!]!
+    getUserByUsername(searchUserInput: SearchUserInput): User!
 }
 type RootMutation {
     createEvent(eventInput: CreateEventInput): Event
     createUser(createUserInput: CreateUserInput): User
     createRecruitment(recruitmentInput: CreateRecruitmentInput): Recruitment
-    updateUser(updateUserInput: UpdateUserInput): User
+    updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput): User
 }
 schema {
     query: RootQuery

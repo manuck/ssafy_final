@@ -67,6 +67,18 @@ module.exports = {
         }
     },
 
+    getUserByUsername: async args => {
+        try {
+            const user = await User.findOne({ username: args.searchUserInput.username });
+            if(!user) {
+                throw new Error('User not exists');
+            }
+            return user
+        } catch (err) {
+            throw err;
+         }
+    },
+
     createEvent: async args => {
         const event = new Event({
         title: args.eventInput.title,
@@ -150,11 +162,28 @@ module.exports = {
             }
             console.log(user.username);
             const updateResult = await user.update(
-                
-                { representationNickname: args.updateUserInput.representationNickname }
-                
+                {
+                    $set: { 
+                        nicknames: args.updateUserInput.nicknames,
+                        representationNickname: args.updateUserInput.representationNickname,
+                        majorPosition: args.updateUserInput.majorPosition,
+                        minorPosition:  args.updateUserInput.minorPosition,
+                        apiUpdatedAt:  args.updateUserInput.apiUpdatedAt,
+                        tiers: {
+                            tier: args.updateTierInput.tier,
+                            rank: args.updateTierInput.rank,
+                            leaguePoint: args.updateTierInput.leaguePoint
+                        }
+                    }
+                }
             );
-            return { ...updateResult._doc, username: args.updateUserInput.username, representationNickname: args.updateUserInput.representationNickname }
+            return {...updateResult._doc, username: args.updateUserInput.username,
+                representationNickname: args.updateUserInput.representationNickname,
+                majorPosition: args.updateUserInput.majorPosition,
+                minorPosition:  args.updateUserInput.minorPosition,
+                apiUpdatedAt:  args.updateUserInput.apiUpdatedAt,
+                tiers: updateResult.tiers
+            };
 
         } catch (err) {
             throw err;
