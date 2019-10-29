@@ -1,5 +1,5 @@
 const axios = require('axios');
-mykey = 'RGAPI-cbe05a9f-d12e-4ceb-bf07-821755e68a8f'
+mykey = 'RGAPI-acdffdaf-3af6-402c-b350-67d4ff9dff25'
 
 exports.getLOLData = async function (nick) {
     try {
@@ -10,7 +10,7 @@ exports.getLOLData = async function (nick) {
     summonerUrl = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${nick}?api_key=${mykey}`
     const allData = await axios.get(encodeURI(summonerUrl))
     .then(async summonerData => { 
-        // console.log(summonerData.data)
+        console.log(summonerData.data)
         let data = summonerData.data
         let userId = data['id']
         let accountId = data['accountId']
@@ -18,13 +18,18 @@ exports.getLOLData = async function (nick) {
         matchUrl = `https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${mykey}`
         tiers = await axios.get(encodeURI(leagueUrl))
         .then(userData => {
-            if (userData.data[0]) {
+            console.log(userData.data)
+            if (userData.data == '') {
+                return false
+            }
+            else {
                 tier = userData.data[0]['tier']
                 rank = userData.data[0]['rank']
                 leaguePoint = userData.data[0]['leaguePoints']
                 console.log(tier, rank, leaguePoint)
+                return [tier, rank, leaguePoint]
             }
-            return [tier, rank, leaguePoint]
+            
         }).catch (error => {
             console.error(error)
         })
@@ -56,14 +61,14 @@ exports.getLOLData = async function (nick) {
                     let kills = gameData.data['participants'][participantId-1]['stats']['kills']
                     let deaths = gameData.data['participants'][participantId-1]['stats']['deaths']
                     let assists = gameData.data['participants'][participantId-1]['stats']['assists']
-                    return ['승리', kills, deaths, assists, champion] 
+                    return [true, kills, deaths, assists, champion] 
                 }
                 else {
                     let champion = gameData.data['participants'][participantId-1]['championId']
                     let kills = gameData.data['participants'][participantId-1]['stats']['kills']
                     let deaths = gameData.data['participants'][participantId-1]['stats']['deaths']
                     let assists = gameData.data['participants'][participantId-1]['stats']['assists']
-                    return ['패배', kills, deaths, assists, champion]
+                    return [false, kills, deaths, assists, champion]
 
                 }
             })

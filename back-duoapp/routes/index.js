@@ -11,6 +11,7 @@ const User = require('../models/user')
 //     console.log('gg')
 //     res.render('index', { title: 'Express' });
 // });
+
 router.get('/authtest', authCheck, async(req, res) => {
     const { _id } = req.decoded;
     // console.log('로그인 성공')
@@ -21,23 +22,24 @@ router.use('/api', apiRouter);
 
 router.get('/test', async (req, res) => {
     // lolAPI.makeGetRequest();
+    // ifInfo : true, false 닉네임이 검색되는지 확인
     const isInfo = await lolAPI.hasNickname('마눅')
-    // console.log('-----------------------------------------------------------------------------------------')
-    // console.log(isInfo)
-    // console.log('-----------------------------------------------------------------------------------------')
     if (isInfo) {
         const data = await lolAPI.getLOLData("마눅")
         console.log('닉넴 있음')
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        console.log('------------------------------------------------------------------------')
         // console.log(data)
+        // data['tiers'] : tier정보, data['recentGame'] : 최근 5게임
         console.log(data['tiers'][0])   // tier
         console.log(data['tiers'][1])   // rank
         console.log(data['tiers'][2])   // leaguePoint
         console.log(data['recentGame']) // 최근 5게임(list[승패, kills, deaths, assists, champion])
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        console.log('------------------------------------------------------------------------')
+        res.json(data)
     }
     else {
         console.log('닉네임을 확인해주세요')
+        res.json({'error':'에러에러에러에러'})
     }
     // lolAPI.getLOLData().then(function (info) {
     //     console.log('닉네임 상태?')
@@ -69,7 +71,6 @@ router.get('/test', async (req, res) => {
         // }
     // });
 
-    res.json({'LOLAPI':'gg'})
 })
 
 module.exports = router;
