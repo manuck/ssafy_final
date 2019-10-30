@@ -6,11 +6,13 @@ const authCheck = require('../middlewares/auth')
 const User = require('../models/user')
     /* GET home page. */
 
+// webpush.setVapidDetails('mailto:val@karpov.io', publicVapidKey, privateVapidKey);
 
 // router.get('/', authCheck, function(req, res, next) {
 //     console.log('gg')
 //     res.render('index', { title: 'Express' });
 // });
+
 
 router.get('/authtest', authCheck, async(req, res) => {
     const { _id } = req.decoded;
@@ -76,6 +78,7 @@ router.post('/test', async (req, res) => {
     // });
 
 })
+
 
 module.exports = router;
 

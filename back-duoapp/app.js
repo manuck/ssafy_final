@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
 const graphql = require('./graphql')
 const session = require('express-session')
 const passport = require('passport')

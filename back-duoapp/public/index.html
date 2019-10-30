@@ -3,6 +3,7 @@
 <head>
     <title>Express</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="push.js"></script>
 </head>
 
 
@@ -11,6 +12,47 @@
     <h1>dev</h1>
     <h1>Express</h1>
     <p>Welcome to Express</p>
+    <button id="notify-button" onclick="button1_click()">Notify Me!!</button>
+    <button id="clear-button" onclick="button3_click()">Clear All!</button>
+    <button id="check-button" onclick="button2_click()">Check Permission</button>
+
+<script>
+    function button1_click() {
+        Push.create("Hello world!",{
+            body: "This is example of Push.js Tutorial",
+            // icon: '/Logo_small.png',
+            timeout: 2000,
+            onClick: function () {
+                window.focus();
+                this.close();
+            }
+        });
+    }
+    function button2_click() {
+        console.log(Push.Permission.has());
+    }
+    function button3_click() {
+        Push.clear();
+    }
+    // $("#notify-button").click(function(){
+    //         Push.create("Hello world!",{
+    //             body: "This is example of Push.js Tutorial",
+    //             icon: '/Logo_small.png',
+    //             timeout: 2000,
+    //             onClick: function () {
+    //                 window.focus();
+    //                 this.close();
+    //             }
+    //         });
+    //     });
+    //     $("#clear-button").click(function(){ 
+    //         Push.clear();
+    //     });
+    //     $("#check-button").click(function(){ 
+    //             console.log(Push.Permission.has());
+    //     });
+
+</script>
 </body>
 
 </html>
