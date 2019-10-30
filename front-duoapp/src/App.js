@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Main from './pages/Main';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import TopNav from './components/nav/TopNav';
@@ -11,7 +11,7 @@ const App = () => {
     return (
         <div className="app__wrapper">
             <TopNav/>
-            <Route path="/" component={Home} exact={true} />
+            <Route path="/" component={Main} exact={true} />
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
             <Footer/>

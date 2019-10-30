@@ -3,9 +3,9 @@ import React from 'react';
 import RecruitRegister from '../components/recruit/RecruitRegister';
 import RecruitList from '../components/recruit/RecruitList';
 // import Footer from '../components/Footer';
-import './Home.scss';
+import './Main.scss';
 
-const Home = () => {
+const Main = () => {
     return (
         <div className="home">
             {/* <TopNav/> */}
@@ -18,4 +18,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Main;

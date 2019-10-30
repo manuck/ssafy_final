@@ -4,7 +4,6 @@ body {
     margin: 0;
     box-sizing: border-box;
 }
-
 * {
     box-sizing: inherit;
     font-family: 'Noto Sans KR', sans-serif;
@@ -12,12 +11,21 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
 a {
     text-decoration: inherit;
     color: inherit;
 }
-
 button {
-    background-color: #ffffff;
+    background-color: #1ea1f6;
+    border-radius: 3px;
+    border: 0;
+}
+input {
+    border: 1px solid #222222;
+    border-radius: 3px;
+}
+.cardview {
+    border-radius: 3px;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.1);
+    background-color: #fefefe;
 }
