@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+// import Profile from '../../pages/Profile';
 import './RecruitRegister.scss';
 import TopIcon from '../../assets/icons/ranked-positions/Position_Challenger-Top.png';
 import JungleIcon from '../../assets/icons/ranked-positions/Position_Challenger-Jungle.png';
@@ -9,10 +11,11 @@ import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger
 const RecruitRegister = () => {
     // getUserInfo
     // const user = {'nickname': 'dummy'};
-    const user = '';
+    const user = {'representationName': 0};
     return (
         <React.Fragment>
-            {user ? (
+            {user.representationName ? (
+                // 대표 소환사가 등록된 경우
                 <div className="register__form">
                     <div className="register__title">
                         매칭 등록하기
@@ -42,11 +45,17 @@ const RecruitRegister = () => {
                         </div>
                     </div>
                 </div>
-            ) : (
-                <div className="register__form">
+            ) : user ? (
+                // 대표 소환사가 등록되지 않은 경우
+                <Link to="/profile" className="register__form">
                     <div className="register__title">
-                        
+                        대표 소환사를 등록해 주세요.
                     </div>
+                </Link>
+            ) : (
+                // 로그인 하지 않은 경우
+                <div>
+                    d
                 </div>
             )}
         </React.Fragment>

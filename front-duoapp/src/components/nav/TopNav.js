@@ -34,7 +34,9 @@ const TopNav = () => {
     return (
         <div className="topnav">
             <div className="topnav__logo">
-                <span>DUO.GG</span>
+                <Link to="/">
+                    <span>DUO.GG</span>
+                </Link>
             </div>
             <div className="topnav__user">
                 {user.representationNickname ? (
