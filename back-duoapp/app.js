@@ -15,7 +15,11 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config.json')[env];
 const GOOGLESECRET = config.googleSecret;
 
+var cors = require('cors');
+
 var app = express();
+
+app.use(cors());
 
 app.set('jwt-secret', config.secret)
 
