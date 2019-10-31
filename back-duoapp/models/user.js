@@ -1,19 +1,39 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const User = new Schema({
-    username: { type: String, unique: true },
-    nicknames: [String],
-    representationNickname: String,
-    tiers: {
-        tier: String,
-        rank: String,
-        leaguePoint: Number
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
     },
-    majorPosition: String,
-    minorPosition: String,
-    apiUpdatedAt: Date,
-    recentgame: [
+    nicknames: {
+        type: [String],
+    },
+    representationNickname: {
+        type: String,
+    },
+    tiers: {
+        tier: {
+            type: String
+        },
+        rank: {
+            type: String
+        },
+        leaguePoint: {
+            type: Number
+        }
+    },
+    majorPosition: {
+        type: String
+    },
+    minorPosition: {
+        type: String
+    },
+    apiUpdatedAt: {
+        type: Date
+    },
+    recentgames: [
         {
             win: Boolean,
             kills: Number,
@@ -24,8 +44,7 @@ const User = new Schema({
     ]
 }, {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
-})
-
+});
 
 User.statics.findOrCreate = function(condition, callback) {
     // const { username } = condition
@@ -40,24 +59,4 @@ User.statics.findOrCreate = function(condition, callback) {
         }
     })
 }
-
-module.exports = mongoose.model('User', User)
-
-const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  createdEvents: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Event'
-    }
-  ]
-});
-
-// module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
