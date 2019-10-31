@@ -39,8 +39,16 @@ router.post('/test', async (req, res) => {
         console.log(data['tiers'][0])   // tier
         console.log(data['tiers'][1])   // rank
         console.log(data['tiers'][2])   // leaguePoint
-        console.log(data['recentGame']) // 최근 5게임(list[승패, kills, deaths, assists, champion])
+        console.log(data['recentGames']) // 최근 5게임(list[승패, kills, deaths, assists, champion])
         console.log('------------------------------------------------------------------------')
+        // User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
+        // function(err, res) {
+        //     if (err) { 
+        //         callback(err, null);
+        //     } else { 
+        //         callback(null, res);
+        //     }
+        // });
         res.json(data)
     }
     else {
@@ -70,11 +78,11 @@ router.post('/test', async (req, res) => {
     // 유저 업데이트 하는 코드
     // User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
     // function(err, res) {
-        // if (err) { 
-        //     callback(err, null);
-        // } else { 
-        //     callback(null, res);
-        // }
+    //     if (err) { 
+    //         callback(err, null);
+    //     } else { 
+    //         callback(null, res);
+    //     }
     // });
 
 })

@@ -5,7 +5,7 @@ exports.getLOLData = async function (nick) {
     try {
     let summonerUrl, matchUrl, leagueUrl;
     let gamelist = []
-    let recentGame = []
+    let recentGames = []
     let tiers = []
     summonerUrl = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${nick}?api_key=${mykey}`
     const allData = await axios.get(encodeURI(summonerUrl))
@@ -39,7 +39,7 @@ exports.getLOLData = async function (nick) {
             console.error(error)
         })
         if (tiers != false) {
-            recentGame = await axios.get(matchUrl)
+            recentGames = await axios.get(matchUrl)
             .then( async (matchData) => {
                 let matches = matchData.data['matches']
                 let cnt = 0
@@ -83,7 +83,7 @@ exports.getLOLData = async function (nick) {
                 console.error(error)
             })
         }
-            return {tiers, recentGame}
+            return {tiers, recentGames}
         }) 
         return allData
     }   
