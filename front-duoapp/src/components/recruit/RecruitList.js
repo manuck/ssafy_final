@@ -4,7 +4,7 @@ import './RecruitList.scss';
 
 const RecruitList = () => {
     return (
-        <div class="matchnow__list">
+        <div className="matchnow__list">
             <Recruit/>
             <Recruit/>
             <Recruit/>
