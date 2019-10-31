@@ -54,6 +54,10 @@ const Recruit = props => {
                 return <img alt="SupportIcon" src={SupportIcon} />;
         }
     }
+    const getChampionImage = champion => {
+        return <img alt="champion" src="http://ddragon.leagueoflegends.com/cdn/9.21.1/img/champion/Aatrox.png" />
+    }
+    console.log(each.recent);
     return (
         <div className="recruit__each">
             <div className="column1">
@@ -74,14 +78,31 @@ const Recruit = props => {
             </div>
             <div className="column3">
                 <div className="records">
-                    {/* {each.recent[0].win ? 'win' : 'lose'} */}
+                    {each.recentgames.map((game, index) => (
+                        <div className="record" key={index}>
+                            <div className="champion">
+                                {getChampionImage(game.champion)}
+                            </div>
+                            <div className="result">
+                                {game.win ? <span className="win">승리</span> : <span className="lose">패배</span>}&nbsp;&nbsp;
+                            </div>
+                            <div className="score">
+                                {game.kills} <span>/</span> {game.deaths} <span>/</span> {game.assists}
+                            </div>
+                        </div>
+                    ))}
                 </div>
+            </div>
+            <div className="column4">
                 <div className="status">
-                    {each.status ? 'true' : 'false'}
+                    {each.status ? <span className="waiting">대기중</span> : '게임중'}
                 </div>
                 <div className="time">
                     created_time
                 </div>
+                <button className="submit">
+                    더 보기
+                </button>
             </div>
         </div>
     );
