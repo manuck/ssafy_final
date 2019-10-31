@@ -46,7 +46,7 @@ const userSchema = new Schema({
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
-User.statics.findOrCreate = function(condition, callback) {
+userSchema.statics.findOrCreate = function(condition, callback) {
     // const { username } = condition
     // condition = { username: username }
     this.findOneAndUpdate(condition, {}, (err, user) => {

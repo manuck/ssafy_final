@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const graphql = require('./graphql')
+
 const session = require('express-session')
 const passport = require('passport')
 const passports = require('./passport')
@@ -14,9 +14,14 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config.json')[env];
 const GOOGLESECRET = config.googleSecret;
 
-var cors = require('cors');
+// GraphQL import
+const bodyParser = require('body-parser');
+const graphqlHttp = require('express-graphql');
+const graphqlSchema = require('./graphql/schema/index');
+const graphqlResolvers = require('./graphql/resolvers/index');
 
 var app = express();
+
 app.use(cors());
 app.set('jwt-secret', config.secret)
 
@@ -29,7 +34,6 @@ app.set('jwt-secret', config.secret)
 passports.init(passport);
 app.use(passport.initialize());
 app.use(passport.session());
-graphql.initGraphql(app);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -39,8 +43,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/graphql');
-// app.use('/graphiql');
+
+app.use(bodyParser.json());
+app.use('/graphql', graphqlHttp({
+ schema: graphqlSchema,
+ rootValue: graphqlResolvers,
+ graphiql: true
+}));
+
 // db 연결
 db.connectDB();
 module.exports = app;
