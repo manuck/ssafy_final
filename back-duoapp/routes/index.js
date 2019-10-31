@@ -4,6 +4,7 @@ const lolAPI = require('../lolAPI');
 const apiRouter = require('./api');
 const authCheck = require('../middlewares/auth');
 const User = require('../models/user');
+const Recruitment = require('../models/recruitment');
     
 router.get('/authtest', authCheck, async(req, res) => {
     const { _id } = req.decoded;
@@ -16,7 +17,9 @@ router.use('/api', apiRouter);
 router.post('/test', async (req, res) => {
     // lolAPI.makeGetRequest();
     // ifInfo : true, false 닉네임이 검색되는지 확인
+    let result = await Recruitment.find({});
     console.log('###############################################################################')
+    console.log(result)
     console.log(req.body['nickname'])
     console.log(req.body['username'])
     console.log(req.body['userId'])
@@ -37,11 +40,20 @@ router.post('/test', async (req, res) => {
         console.log(data['recentGames']) // 최근 5게임(list[승패, kills, deaths, assists, champion])
         console.log('------------------------------------------------------------------------')
         // 유저 업데이트 하는 코드
-        const updateresult = await User.findOneAndUpdate({_id:id}, {
+        let inNickName = Boolean
+        await User.find({_id:id}, function(err, data) {
+            inNickName = data[0]['nicknames'].includes(search)
+        })
+        console.log(inNickName)
+        if (inNickName === false) {
+            const updateresult = await User.findOneAndUpdate({_id:id}, {$push: {nicknames: search}})
+        }
+
+        await User.findOneAndUpdate({_id:id},{
             $set: {representationNickname:search,
             tiers:{
                 tier: data['tiers'][0], 
-                rank: data['tiers'][2], 
+                rank: data['tiers'][1], 
                 leaguePoint: data['tiers'][2]
             },
             recentgames: [

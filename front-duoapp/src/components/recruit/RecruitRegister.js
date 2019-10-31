@@ -11,10 +11,10 @@ import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger
 const RecruitRegister = () => {
     // getUserInfo
     // const user = {'nickname': 'dummy'};
-    const user = {'representationName': 0};
+    const user = {'representationNickname': 1};
     return (
         <React.Fragment>
-            {user.representationName ? (
+            {user.representationNickname ? (
                 // 대표 소환사가 등록된 경우
                 <div className="register__form">
                     <div className="register__title">
