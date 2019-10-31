@@ -1,42 +1,68 @@
 .recruit__each {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     // flex: auto;
-    width: 100%;
+    // width: 80%;
     // height: 180px;
     padding: 20px;
-    margin: 20px 0;
+    margin: 20px auto;
     background-color: #fdfdfd;
     box-shadow: 0 4px 4px 0 rgba(0,0,0,0.1);
     > div {
         display: flex;
-        margin: 10px 0;
-        align-items: center;
-        > div {
-            margin: 0 20px;
+        // flex-direction: column;
+        align-items: center; 
+        // margin: 10px 0;
+    }
+    .column1 {
+        flex-direction: column;
+        width: 140px;
+        margin-right: 10px;
+        .emblem {
+            width: 80px;
+            height: 80px;
+            // border: 1px solid black;
+            margin-bottom: 10px;
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .tier {
+            font-weight: 700;
         }
     }
-    .tier {
-        width: 40px;
-        height: 40px;
-        border: 1px solid black;
+    .column2 {
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 10px;
+        .position__emblem {
+            width: 50px;
+            height: 50px;
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .position {
+            font-weight: 700;
+            // border: 1px solid black;
+        }
     }
-    .position {
-        width: 80px;
-        height: 30px;
-        border: 1px solid black;
+    > div {
+        display: flex;
+        .nickname {
+            width: 120px;
+            height: 30px;
+            border: 1px solid black;
+        }
+        .records {
+            width: 500px;
+            height: 80px;
+            border: 1px solid black;
+        }
+        .status, .time, .submit {
+            border: 1px solid black;
+        }    
     }
-    .nickname {
-        width: 120px;
-        height: 30px;
-        border: 1px solid black;
-    }
-    .records {
-        width: 500px;
-        height: 80px;
-        border: 1px solid black;
-    }
-    .status, .time, .submit {
-        border: 1px solid black;
-    }    
 }

@@ -1,0 +1,28 @@
+.profile {
+    .profile__list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        width: 500px;
+        margin: 0 auto;
+        .title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        .content {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            display: flex;
+            .profile__card {
+                height: 100px;
+                width: 200px;
+                padding: 10px 20px;
+                margin: 0 10px 10px 10px;
+            }
+        }
+    }
+}

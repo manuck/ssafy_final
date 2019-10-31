@@ -21,11 +21,22 @@ button {
     border: 0;
 }
 input {
-    border: 1px solid #222222;
+    border: 1px solid #777777;
     border-radius: 3px;
+}
+ul {
+    list-style-type: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
 }
 .cardview {
     border-radius: 3px;
     box-shadow: 0 4px 4px 0 rgba(0,0,0,0.1);
+    background-color: #fefefe;
+}
+.cardview--border {
+    border: 1px solid #333333;
+    border-radius: 3px;
     background-color: #fefefe;
 }

@@ -42,10 +42,6 @@ const ProfileRegister = () => {
                 <input name="nickname" type="text" />
                 <button onClick={findName}>등록</button>
             </div>
-            <div className="myaccounts">
-                계정 목록
-                {/* <MyAccount/> */}
-            </div>
         </div>
     );
 };
