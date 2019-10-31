@@ -15,8 +15,9 @@ router.get('/authtest', authCheck, async(req, res) => {
     const { _id } = req.decoded;
     // console.log('로그인 성공')
     const user = await User.findById(_id);
-    console.log(user);
-    console.log(res);
+    console.log(JSON.stringify(user));
+    console.log(typeof(JSON.stringify(user)));
+    // console.log(res);
     res.json(user);
 });
 router.use('/api', apiRouter);

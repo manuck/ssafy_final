@@ -7,19 +7,18 @@ import { Link } from 'react-router-dom';
 import './TopNav.scss';
 
 const TopNav = () => {
-    // const [user, setUser] = useState('');
-    const user = {};
+    const [user, setUser] = useState('');
     useEffect(() => {
         // profile에서 유저 정보 가져오기
-        // const token = document.cookie;
-        // console.log('token:', token);
-        setUser();
-    });
-    const setUser = async() => {
+        console.log('1');
+        getUsername();
+        console.log('user', user);
+    },[]);
+    const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
         console.log('token:', token[1]);
         console.log('before fetch');
-        const user = await fetch('http://localhost:4000/authtest', {
+        const res = await fetch('http://localhost:4000/authtest', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -27,7 +26,12 @@ const TopNav = () => {
                 'authorization': token[1]
             },
         });
-        console.log('user:', user);
+        // console.log('user:', res.json().then(data => console.log(data.username)));
+        const username = '';
+        await res.json().then(data => {
+            console.log('--',data);
+            setUser(data);
+        });
     }
     // const user = {
     //     username: 'kbs3539@gmail.com',
