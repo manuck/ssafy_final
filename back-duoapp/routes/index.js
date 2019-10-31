@@ -34,7 +34,7 @@ router.post('/test', async (req, res) => {
         const data = await lolAPI.getLOLData(search)
         console.log('닉넴 있음')
         console.log('------------------------------------------------------------------------')
-        // console.log(data)
+        console.log(data)
         // data['tiers'] : tier정보, data['recentGame'] : 최근 5게임
         console.log(data['tiers'][0])   // tier
         console.log(data['tiers'][1])   // rank
