@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import cookie from 'react-cookies';
-// import jwt_decode from 'jwt-decode';
 // import TopNavLogo from './TopNavLogo';
 // import TopNavUser from './TopNavUser';
 import './TopNav.scss';
@@ -10,14 +8,10 @@ const TopNav = () => {
     const [user, setUser] = useState('');
     useEffect(() => {
         // profile에서 유저 정보 가져오기
-        console.log('1');
         getUsername();
-        console.log('user', user);
     },[]);
     const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
-        console.log('token:', token[1]);
-        console.log('before fetch');
         const res = await fetch('http://localhost:4000/authtest', {
             method: 'GET',
             mode: 'cors',
@@ -29,7 +23,6 @@ const TopNav = () => {
         // console.log('user:', res.json().then(data => console.log(data.username)));
         const username = '';
         await res.json().then(data => {
-            console.log('--',data);
             setUser(data);
         });
     }
