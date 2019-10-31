@@ -38,6 +38,20 @@ type Recruitment {
     position: String!
     status: Boolean!
 }
+type RecruitmentAndUser {
+    _id: ID!
+    userId: ID!
+    position: String!
+    status: Boolean!
+    username: String!
+    nicknames: [String]
+    representationNickname: String!
+    tiers: Tier!
+    majorPosition: String!
+    minorPosition: String!
+    apiUpdatedAt: String!
+    recentgames :[Game]
+}
 
 
 
@@ -89,6 +103,8 @@ type RootQuery {
     events: [Event!]!
     users: [User!]!
     recruitments: [Recruitment!]!
+    recruitmentsAndUsers: [RecruitmentAndUser]!
+    getUser(userId : ID): User!
     getUserByUsername(searchUserInput: SearchUserInput): User!
 }
 type RootMutation {

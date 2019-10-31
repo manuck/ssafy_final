@@ -82,6 +82,41 @@ module.exports = {
          }
     },
 
+    recruitmentsAndUsers: async () => {
+        try {
+            const recruitments = await Recruitment.find();
+            return recruitments.map(async recruitment => {
+                const user = await User.findById({_id: recruitment.userId});
+                return {
+                    ...recruitment._doc,
+                    _id: recruitment.id,
+                    userId: recruitment.userId,
+                    position: recruitment.position,
+                    status: recruitment.status,
+                    username: user.username,
+                    nicknames: user.nicknames,
+                    representationNickname: user.representationNickname,
+                    tiers: user.tiers,
+                    majorPosition: user.majorPosition,
+                    minorPosition: user.minorPosition,
+                    apiUpdatedAt: user.apiUpdatedAt,
+                    recentgames: user.recentgames
+                }
+            })
+        } catch (err) {
+            throw err;
+         }
+    },
+
+    getUser: async args => {
+        try {
+            const user = await User.findById({_id: args.userId});
+            return user;
+        } catch (err) {
+            throw err;
+         }
+    },
+
     getUserByUsername: async args => {
         try {
             const user = await User.findOne({ username: args.searchUserInput.username });
