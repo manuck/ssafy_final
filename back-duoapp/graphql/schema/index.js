@@ -18,7 +18,7 @@ type User {
     majorPosition: String!
     minorPosition: String!
     apiUpdatedAt: String!
-    recentgame :[Game]
+    recentgames :[Game]
 }
 type Tier {
     tier: String!
@@ -89,7 +89,7 @@ type RootMutation {
     createEvent(eventInput: CreateEventInput): Event
     createUser(createUserInput: CreateUserInput): User
     createRecruitment(recruitmentInput: CreateRecruitmentInput): Recruitment
-    updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput): User
+    updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]): User
 }
 schema {
     query: RootQuery

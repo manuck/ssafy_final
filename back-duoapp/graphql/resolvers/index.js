@@ -169,11 +169,8 @@ module.exports = {
                         majorPosition: args.updateUserInput.majorPosition,
                         minorPosition:  args.updateUserInput.minorPosition,
                         apiUpdatedAt:  args.updateUserInput.apiUpdatedAt,
-                        tiers: {
-                            tier: args.updateTierInput.tier,
-                            rank: args.updateTierInput.rank,
-                            leaguePoint: args.updateTierInput.leaguePoint
-                        }
+                        tiers: args.updateTierInput,
+                        recentgames: args.updateGameInput
                     }
                 }
             );
@@ -182,7 +179,8 @@ module.exports = {
                 majorPosition: args.updateUserInput.majorPosition,
                 minorPosition:  args.updateUserInput.minorPosition,
                 apiUpdatedAt:  args.updateUserInput.apiUpdatedAt,
-                tiers: updateResult.tiers
+                tiers: args.updateTierInput,
+                recentgames: args.updateGameInput
             };
 
         } catch (err) {

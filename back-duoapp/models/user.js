@@ -33,7 +33,7 @@ const userSchema = new Schema({
     apiUpdatedAt: {
         type: Date
     },
-    recentgame: [
+    recentgames: [
         {
             win: Boolean,
             kills: Number,
