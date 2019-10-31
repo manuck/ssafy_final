@@ -65,6 +65,23 @@ module.exports = {
         }
     },
 
+    recruitments: async () => {
+        try {
+            const recruitments = await Recruitment.find();
+            return recruitments.map(recruitment => {
+                return {
+                    ...recruitment._doc,
+                    _id: recruitment.id,
+                    userId: recruitment.userId,
+                    position: recruitment.position,
+                    status: recruitment.status
+                };
+            });
+        } catch (err) {
+            throw err;
+         }
+    },
+
     getUserByUsername: async args => {
         try {
             const user = await User.findOne({ username: args.searchUserInput.username });
@@ -126,12 +143,22 @@ module.exports = {
 
     createRecruitment: async args => {
         try {
-            const recruitment = new Recruitment({
-                position: args.recruitmentInput.position,
-                status: args.recruitmentInput.status
-            });
-            const result = await recruitment.save();
-            return { ...result._doc, position: recruitment.position, status: recruitment.status, timestamps: recruitment.timestamps}
+            const userId = await User.findOne({ username: args.recruitmentInput.username });
+            const existRecruitment = await Recruitment.findOne({ userId : userId });
+            if(existRecruitment) {
+                const updateRecuritment = await existRecruitment.update( {status: true} );
+                return { ...updateRecuritment._doc, userId: updateRecuritment.userId, position: updateRecuritment.position, status: updateRecuritment.status, timestamps: updateRecuritment.timestamps};
+            }
+            else {
+                const recruitment = new Recruitment({
+                    userId: userId.id,
+                    position: args.recruitmentInput.position,
+                    status: true
+                });
+                const result = await recruitment.save();
+                return { ...result._doc, userId: recruitment.userId, position: recruitment.position, status: recruitment.status, timestamps: recruitment.timestamps};
+            }
+            
         } catch (err) {
             throw err;
         }

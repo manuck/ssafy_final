@@ -34,6 +34,7 @@ type Game {
 }
 type Recruitment {
     _id: ID!
+    userId: ID!
     position: String!
     status: Boolean!
 }
@@ -50,8 +51,9 @@ input CreateUserInput {
     username: String!
 }
 input CreateRecruitmentInput {
+    username: String! 
     position: String!
-    status: Boolean!
+    status: Boolean
 }
 input UpdateUserInput {
     username: String!
@@ -73,6 +75,10 @@ input UpdateGameInput {
     assists: Int!
     champion: Int!
 }
+input UpdateUserAddNickNameInput {
+    username: String!
+    nickname: String!
+}
 input SearchUserInput {
     username: String!
 }
@@ -89,6 +95,7 @@ type RootMutation {
     createEvent(eventInput: CreateEventInput): Event
     createUser(createUserInput: CreateUserInput): User
     createRecruitment(recruitmentInput: CreateRecruitmentInput): Recruitment
+    updateUserAddNickName(updateUserAddNickNameInput: UpdateUserAddNickNameInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]):User
     updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]): User
 }
 schema {
