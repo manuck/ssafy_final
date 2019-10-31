@@ -18,8 +18,11 @@ router.post('/test', async (req, res) => {
     // ifInfo : true, false 닉네임이 검색되는지 확인
     console.log('###############################################################################')
     console.log(req.body['nickname'])
+    console.log(req.body['username'])
+    console.log(req.body['userId'])
     console.log('###############################################################################')
     const search = req.body['nickname']
+    const id = req.body['userId']
     const isInfo = await lolAPI.hasNickname(search)
     if (isInfo) {
         const data = await lolAPI.getLOLData(search)
@@ -27,11 +30,54 @@ router.post('/test', async (req, res) => {
         console.log('------------------------------------------------------------------------')
         console.log(data)
         // data['tiers'] : tier정보, data['recentGame'] : 최근 5게임
+        console.log(id)
         console.log(data['tiers'][0])   // tier
         console.log(data['tiers'][1])   // rank
         console.log(data['tiers'][2])   // leaguePoint
         console.log(data['recentGames']) // 최근 5게임(list[승패, kills, deaths, assists, champion])
         console.log('------------------------------------------------------------------------')
+        // 유저 업데이트 하는 코드
+        const updateresult = await User.findOneAndUpdate({_id:id}, {
+            $set: {representationNickname:search,
+            tiers:{
+                tier: data['tiers'][0], 
+                rank: data['tiers'][2], 
+                leaguePoint: data['tiers'][2]
+            },
+            recentgames: [
+                { win: data['recentGames'][0][0],
+                kills: data['recentGames'][0][1],
+                deaths: data['recentGames'][0][2],
+                assists: data['recentGames'][0][3],
+                champion: data['recentGames'][0][4],
+                },
+                { win: data['recentGames'][1][0],
+                kills: data['recentGames'][1][1],
+                deaths: data['recentGames'][1][2],
+                assists: data['recentGames'][1][3],
+                champion: data['recentGames'][1][4],
+                },
+                { win: data['recentGames'][2][0],
+                kills: data['recentGames'][2][1],
+                deaths: data['recentGames'][2][2],
+                assists: data['recentGames'][2][3],
+                champion: data['recentGames'][2][4],
+                },
+                { win: data['recentGames'][3][0],
+                kills: data['recentGames'][3][1],
+                deaths: data['recentGames'][3][2],
+                assists: data['recentGames'][3][3],
+                champion: data['recentGames'][3][4],
+                },
+                { win: data['recentGames'][4][0],
+                kills: data['recentGames'][4][1],
+                deaths: data['recentGames'][4][2],
+                assists: data['recentGames'][4][3],
+                champion: data['recentGames'][4][4],
+                }
+            ]
+        }
+        });
         // User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
         // function(err, res) {
         //     if (err) { 
@@ -66,15 +112,7 @@ router.post('/test', async (req, res) => {
     //     return data[0] 
     // })
 
-    // 유저 업데이트 하는 코드
-    // User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
-    // function(err, res) {
-    //     if (err) { 
-    //         callback(err, null);
-    //     } else { 
-    //         callback(null, res);
-    //     }
-    // });
+
 
 })
 
