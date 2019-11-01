@@ -9,8 +9,10 @@ import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger
 
 const RecruitRegister = () => {
     const [user, setUser] = useState({});
+    const [registerResult, setState] = useState({});
     const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
+        console.log('user', user);
         const res = await fetch('http://localhost:4000/authtest', {
             method: 'GET',
             mode: 'cors',
@@ -24,17 +26,17 @@ const RecruitRegister = () => {
         });
     };
     const registerSubmit = async() => {
-        const selectedPosition = document.querySelector('input[name="position"]:checked').id;
+        const selectedPosition = document.querySelector('input[name="position"]:checked').id.toUpperCase();
         const requestBody = {
             query: `
                 mutation {
-                    createRecruitment(recruitmentInput: {username: "${user.username}", position: "${selectedPosition}"}) {
+                    createRecruitment(createRecruitmentInput: {username: "${user.username}", position: "${selectedPosition}"}) {
                         position
                     }
                 }
             `
         }
-        console.log(requestBody);
+        // console.log(requestBody);
         const res = await fetch('http://localhost:4000/graphql', {
             method: 'POST',
             body: JSON.stringify(requestBody),
@@ -43,7 +45,8 @@ const RecruitRegister = () => {
             }
         });
         await res.json().then(data => {
-            console.log(data);
+            setState(data);
+            console.log('data22',data);
         });
     };
     useEffect(() => {
@@ -65,8 +68,8 @@ const RecruitRegister = () => {
                             <label for="jungle">JUNGLE</label>
                             <input type="radio" name="position" id="mid" />
                             <label for="mid">MID</label>
-                            <input type="radio" name="position" id="bot" />
-                            <label for="bot">BOT</label>
+                            <input type="radio" name="position" id="ad" />
+                            <label for="ad">AD</label>
                             <input type="radio" name="position" id="support" />
                             <label for="support">SUPPORT</label>
                         </div>

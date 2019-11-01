@@ -49,7 +49,7 @@ const Recruit = props => {
                 return <img alt="JungleIcon" src={JungleIcon} />;
             case 'MID':
                 return <img alt="MidIcon" src={MidIcon} />;
-            case 'BOT':
+            case 'AD':
                 return <img alt="BotIcon" src={BotIcon} />;
             case 'SUPPORT':
                 return <img alt="SupportIcon" src={SupportIcon} />;
