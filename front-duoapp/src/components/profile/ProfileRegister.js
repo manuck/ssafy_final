@@ -7,33 +7,18 @@ const ProfileRegister = () => {
         const nickname = document.querySelector('.accounts .form input').value;
         console.log(nickname);
         try {
-            const res = await fetch('http://localhost:4000/test2', {
-                // crossDomain: true,
+            const res = await fetch('http://localhost:4000/test', {
                 method: 'POST',
-                // mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({nickname: nickname})
-                // body: {'nickname': nickname}
             });
             console.log('result', res);
-            // const res = await fetch('http://localhost:4000/test', {
-            //     crossDomain: true,
-            //     method: 'POST',
-            //     mode: 'cors',
-            //     // redirect: 'follow',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(nickname)
-            // });
         } catch (err) {
-            console.log('fuck');
             console.log(err);
         }
         console.log('after fetch in frontend')
-        // console.log(res)
     }
     return (
         <div className="accounts cardview">

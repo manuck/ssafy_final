@@ -14,6 +14,7 @@ import JungleIcon from '../../assets/icons/ranked-positions/Position_Challenger-
 import MidIcon from '../../assets/icons/ranked-positions/Position_Challenger-Mid.png';
 import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot.png';
 import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
+import ChampionIndex from '../../assets/data/championIndex.json';
 
 const Recruit = props => {
     console.log('props', props);
@@ -39,7 +40,7 @@ const Recruit = props => {
             case 'CHALLENGER':
                 return <img alt="Emblem_Challenger" src={Emblem_Challenger} />;
         }
-    }
+    };
     const getPositionEmblem = position => {
         switch(position) {
             case 'TOP':
@@ -53,11 +54,17 @@ const Recruit = props => {
             case 'SUPPORT':
                 return <img alt="SupportIcon" src={SupportIcon} />;
         }
-    }
+    };
     const getChampionImage = champion => {
-        return <img alt="champion" src="http://ddragon.leagueoflegends.com/cdn/9.21.1/img/champion/Aatrox.png" />
-    }
-    console.log(each.recent);
+        return <img alt="champion" src={`http://ddragon.leagueoflegends.com/cdn/9.21.1/img/champion/${ChampionIndex[champion]}.png`} />
+    };
+    const getCreatedTime = time => {
+        // const calculatedTime = Date.now() - Number(time);
+        const calculatedTime = Number(time);
+        console.log(calculatedTime);
+        return String(new Date(calculatedTime).toLocaleDateString())
+    };
+    console.log('each', each);
     return (
         <div className="recruit__each">
             <div className="column1">
@@ -98,7 +105,7 @@ const Recruit = props => {
                     {each.status ? <span className="waiting">대기중</span> : '게임중'}
                 </div>
                 <div className="time">
-                    created_time
+                    {getCreatedTime(each.created_at)}
                 </div>
                 <button className="submit">
                     더 보기

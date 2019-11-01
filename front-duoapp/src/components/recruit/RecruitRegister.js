@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import Profile from '../../pages/Profile';
 import './RecruitRegister.scss';
 import TopIcon from '../../assets/icons/ranked-positions/Position_Challenger-Top.png';
 import JungleIcon from '../../assets/icons/ranked-positions/Position_Challenger-Jungle.png';
@@ -9,9 +8,47 @@ import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot
 import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
 
 const RecruitRegister = () => {
-    // getUserInfo
-    // const user = {'nickname': 'dummy'};
-    const user = {'representationNickname': 1};
+    const [user, setUser] = useState({});
+    const getUsername = async() => {
+        const token = document.cookie.split("MnMsToken=");
+        const res = await fetch('http://localhost:4000/authtest', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'applicatoin/json',
+                'authorization': token[1]
+            },
+        });
+        await res.json().then(data => {
+            setUser(data);
+        });
+    };
+    const registerSubmit = async() => {
+        const selectedPosition = document.querySelector('input[name="position"]:checked').id;
+        const requestBody = {
+            query: `
+                mutation {
+                    createRecruitment(recruitmentInput: {username: "${user.username}", position: "${selectedPosition}"}) {
+                        position
+                    }
+                }
+            `
+        }
+        console.log(requestBody);
+        const res = await fetch('http://localhost:4000/graphql', {
+            method: 'POST',
+            body: JSON.stringify(requestBody),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        await res.json().then(data => {
+            console.log(data);
+        });
+    };
+    useEffect(() => {
+        getUsername();
+    },[]);
     return (
         <React.Fragment>
             {user.representationNickname ? (
@@ -29,9 +66,9 @@ const RecruitRegister = () => {
                             <input type="radio" name="position" id="mid" />
                             <label for="mid">MID</label>
                             <input type="radio" name="position" id="bot" />
-                            <label for="mid">BOT</label>
+                            <label for="bot">BOT</label>
                             <input type="radio" name="position" id="support" />
-                            <label for="mid">SUPPORT</label>
+                            <label for="support">SUPPORT</label>
                         </div>
                         {/* <div className="position">
                             <div className="top">
@@ -51,9 +88,9 @@ const RecruitRegister = () => {
                             </div>
                         </div> */}
                         <div className="submit">
-                            <div className="button">
+                            <button onClick={registerSubmit} className="button">
                                 등록
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </div>
