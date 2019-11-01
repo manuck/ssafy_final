@@ -102,6 +102,10 @@ input UpdateUserAddNickNameInput {
 input SearchUserInput {
     username: String!
 }
+input DeleteApplicantInput {
+    userId : String!
+    recruitmentId: String!
+}
 
 
 
@@ -118,6 +122,7 @@ type RootMutation {
     createApplicant(createApplicantInput: CreateApplicantInput): Applicant
     updateUserAddNickName(updateUserAddNickNameInput: UpdateUserAddNickNameInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]):User
     updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]): User
+    deleteApplicant(deleteApplicantInput: DeleteApplicantInput): Boolean
 }
 schema {
     query: RootQuery

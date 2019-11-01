@@ -87,7 +87,7 @@ module.exports = {
         try {
             const recruitments = await Recruitment.find();
             return recruitments.map(async recruitment => {
-                const user = await User.findById({_id: recruitment.userId});
+                const user = await User.findById({_id: recruitment.userId}).sort({updated_at: -1});
                 return {
                     ...recruitment._doc,
                     _id: recruitment.id,
@@ -281,6 +281,18 @@ module.exports = {
                 recentgames: args.updateGameInput
             };
 
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    deleteApplicant: async args => {
+        try {
+            const applicant = await Applicant.findOneAndDelete({
+                userId : args.deleteApplicantInput.userId,
+                recruitmentId: args.deleteApplicantInput.recruitmentId
+            });
+            return true;
         } catch (err) {
             throw err;
         }
