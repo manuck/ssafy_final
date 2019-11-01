@@ -21,22 +21,17 @@ const RecruitRegister = () => {
                         매칭 등록하기
                     </div>
                     <div className="register__content">
-                        <div className="position">
-                            <div className="top">
-                                <img alt="top-icon" src={TopIcon} />
-                            </div>
-                            <div className="jungle">
-                                <img alt="jungle-icon" src={JungleIcon} />
-                            </div>
-                            <div className="mid">
-                                <img alt="mid-icon" src={MidIcon} />
-                            </div>
-                            <div className="ad">
-                                <img alt="bot-icon" src={BotIcon} />
-                            </div>
-                            <div className="support">
-                                <img alt="support-icon" src={SupportIcon} />
-                            </div>
+                        <div className="position__radio__wrap">
+                            <input type="radio" name="position" id="top" />
+                            <label for="top">TOP</label>
+                            <input type="radio" name="position" id="jungle" />
+                            <label for="jungle">JUNGLE</label>
+                            <input type="radio" name="position" id="mid" />
+                            <label for="mid">MID</label>
+                            <input type="radio" name="position" id="bot" />
+                            <label for="mid">BOT</label>
+                            <input type="radio" name="position" id="support" />
+                            <label for="mid">SUPPORT</label>
                         </div>
                         {/* <div className="position">
                             <div className="top">

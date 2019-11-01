@@ -84,7 +84,7 @@ const Recruit = props => {
                                 {getChampionImage(game.champion)}
                             </div>
                             <div className="result">
-                                {game.win ? <span className="win">승리</span> : <span className="lose">패배</span>}&nbsp;&nbsp;
+                                {game.win ? <span className="win">승리</span> : <span className="lose">패배</span>}
                             </div>
                             <div className="score">
                                 {game.kills} <span>/</span> {game.deaths} <span>/</span> {game.assists}
