@@ -26,7 +26,7 @@ router.post('/test', async (req, res) => {
     console.log('###############################################################################')
     let search = req.body['nickname']
     let myRecentGame = []
-    search = search.trim()
+    search = search.replace(/\s/gi, "");
     const id = req.body['userId']
     const isInfo = await lolAPI.hasNickname(search)
     if (isInfo) {
@@ -72,44 +72,6 @@ router.post('/test', async (req, res) => {
                 leaguePoint: data['tiers'][2]
             },
             recentgames: myRecentGame
-                // for (let j ; j < data['recentGames'].length; j++) {
-                //     { win: data['recentGames'][j][0],
-                //     kills: data['recentGames'][j][1],
-                //     deaths: data['recentGames'][j][2],
-                //     assists: data['recentGames'][j][3],
-                //     champion: data['recentGames'][j][4],
-                //     },
-                // }
-                // { win: data['recentGames'][0][0],
-                // kills: data['recentGames'][0][1],
-                // deaths: data['recentGames'][0][2],
-                // assists: data['recentGames'][0][3],
-                // champion: data['recentGames'][0][4],
-                // },
-                // { win: data['recentGames'][1][0],
-                // kills: data['recentGames'][1][1],
-                // deaths: data['recentGames'][1][2],
-                // assists: data['recentGames'][1][3],
-                // champion: data['recentGames'][1][4],
-                // },
-                // { win: data['recentGames'][2][0],
-                // kills: data['recentGames'][2][1],
-                // deaths: data['recentGames'][2][2],
-                // assists: data['recentGames'][2][3],
-                // champion: data['recentGames'][2][4],
-                // },
-                // { win: data['recentGames'][3][0],
-                // kills: data['recentGames'][3][1],
-                // deaths: data['recentGames'][3][2],
-                // assists: data['recentGames'][3][3],
-                // champion: data['recentGames'][3][4],
-                // },
-                // { win: data['recentGames'][4][0],
-                // kills: data['recentGames'][4][1],
-                // deaths: data['recentGames'][4][2],
-                // assists: data['recentGames'][4][3],
-                // champion: data['recentGames'][4][4],
-                // }
         }
         });
         // User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
