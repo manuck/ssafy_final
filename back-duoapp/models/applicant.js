@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const Applicant = new Schema({
-    user: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
@@ -11,7 +11,7 @@ const Applicant = new Schema({
         type: String,
         required: true
     },
-    recruitment: {
+    recruitmentId: {
         type: Schema.Types.ObjectId,
         ref: 'Recruitment',
         required: true

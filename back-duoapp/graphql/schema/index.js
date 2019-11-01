@@ -50,7 +50,14 @@ type RecruitmentAndUser {
     created_at : String!
     updated_at : String!
 }
-
+type Applicant {
+    _id: ID!
+    userId: ID!
+    recruitmentId : ID!
+    position: String!
+    created_at : String!
+    updated_at : String!
+}
 
 
 
@@ -62,6 +69,11 @@ input CreateRecruitmentInput {
     username: String! 
     position: String!
     status: Boolean
+}
+input CreateApplicantInput {
+    userId : String!
+    recruitmentId: String!
+    position: String!
 }
 input UpdateUserInput {
     username: String!
@@ -102,7 +114,8 @@ type RootQuery {
 }
 type RootMutation {
     createUser(createUserInput: CreateUserInput): User
-    createRecruitment(recruitmentInput: CreateRecruitmentInput): Recruitment
+    createRecruitment(createRecruitmentInput: CreateRecruitmentInput): Recruitment
+    createApplicant(createApplicantInput: CreateApplicantInput): Applicant
     updateUserAddNickName(updateUserAddNickNameInput: UpdateUserAddNickNameInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]):User
     updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]): User
 }
