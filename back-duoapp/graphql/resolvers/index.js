@@ -1,6 +1,6 @@
 const User = require('../../models/user');
 const Recruitment = require('../../models/recruitment');
-// const Applicant = require('../../models/applicant');
+const Applicant = require('../../models/applicant');
 
 // const events = async eventIds => {
 //     try {
@@ -185,36 +185,68 @@ module.exports = {
 
     createRecruitment: async args => {
         try {
-            const userId = await User.findOne({ username: args.recruitmentInput.username });
+            const userId = await User.findOne({ username: args.createRecruitmentInput.username });
             const existRecruitment = await Recruitment.findOne({ userId : userId });
             if(existRecruitment) {
-                const updateRecuritment = await existRecruitment.update( {status: true} );
+                const updateRecuritment = await existRecruitment.update( {
+                    status: true,
+                    position: args.createRecruitmentInput.position
+                } );
                 return { 
                     ...updateRecuritment._doc,
-                    userId: updateRecuritment.userId,
-                    position: updateRecuritment.position,
-                    status: updateRecuritment.status,
-                    created_at : recruitment.created_at,
-                    updated_at : recruitment.updated_at
+                    userId: userId._id,
+                    position: args.createRecruitmentInput.position,
+                    status: true,
+                    created_at : existRecruitment.created_at,
+                    updated_at : existRecruitment.updated_at
                 };
             }
             else {
                 const recruitment = new Recruitment({
-                    userId: userId.id,
-                    position: args.recruitmentInput.position,
+                    userId: userId._id,
+                    position: args.createRecruitmentInput.position,
                     status: true
                 });
                 const result = await recruitment.save();
                 return { 
                     ...result._doc,
-                    userId: recruitment.userId,
-                    position: recruitment.position,
-                    status: recruitment.status,
-                    created_at : recruitment.created_at,
-                    updated_at : recruitment.updated_at
+                    userId: result.userId,
+                    position: result.position,
+                    status: result.status,
+                    created_at : result.created_at,
+                    updated_at : result.updated_at
                 };
             }
             
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    createApplicant: async args => {
+        try {
+            const user = await User.findOne({ _id: args.createApplicantInput.userId });
+            const recuritment = await Recruitment.findOne({ _id: args.createApplicantInput.recruitmentId });
+            if(!user) {
+                throw new Error('User not exists');
+            }
+            if(!recuritment) {
+                throw new Error('Recruitment not exists');
+            }
+            const applicant = new Applicant({
+                userId: args.createApplicantInput.userId,
+                recruitmentId: args.createApplicantInput.recruitmentId,
+                position: args.createApplicantInput.position
+            });
+            const result = await applicant.save();
+            return {
+                ...result._doc,
+                userId: applicant.userId,
+                recruitmentId: applicant.recruitmentId,
+                position: applicant.position,
+                created_at : applicant.created_at,
+                updated_at : applicant.updated_at
+            };
         } catch (err) {
             throw err;
         }
