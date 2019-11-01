@@ -4,6 +4,7 @@ const lolAPI = require('../lolAPI');
 const apiRouter = require('./api');
 const authCheck = require('../middlewares/auth');
 const User = require('../models/user');
+const Recruitment = require('../models/recruitment');
     
 router.get('/authtest', authCheck, async(req, res) => {
     const { _id } = req.decoded;
@@ -16,10 +17,17 @@ router.use('/api', apiRouter);
 router.post('/test', async (req, res) => {
     // lolAPI.makeGetRequest();
     // ifInfo : true, false 닉네임이 검색되는지 확인
+    let result = await Recruitment.find({});
     console.log('###############################################################################')
+    console.log(result)
     console.log(req.body['nickname'])
+    console.log(req.body['username'])
+    console.log(req.body['userId'])
     console.log('###############################################################################')
-    const search = req.body['nickname']
+    let search = req.body['nickname']
+    let myRecentGame = []
+    search = search.replace(/\s/gi, "");
+    const id = req.body['userId']
     const isInfo = await lolAPI.hasNickname(search)
     if (isInfo) {
         const data = await lolAPI.getLOLData(search)
@@ -27,11 +35,45 @@ router.post('/test', async (req, res) => {
         console.log('------------------------------------------------------------------------')
         console.log(data)
         // data['tiers'] : tier정보, data['recentGame'] : 최근 5게임
+        console.log(id)
         console.log(data['tiers'][0])   // tier
         console.log(data['tiers'][1])   // rank
         console.log(data['tiers'][2])   // leaguePoint
         console.log(data['recentGames']) // 최근 5게임(list[승패, kills, deaths, assists, champion])
         console.log('------------------------------------------------------------------------')
+
+        for (let j = 0; j < data['recentGames'].length; j++) {
+            myRecentGame.push(
+                {win: data['recentGames'][j][0],
+                kills: data['recentGames'][j][1],
+                deaths: data['recentGames'][j][2],
+                assists: data['recentGames'][j][3],
+                champion: data['recentGames'][j][4],
+                }
+            )
+
+        }
+
+        // 유저 업데이트 하는 코드
+        let inNickName = Boolean
+        await User.find({_id:id}, function(err, data) {
+            inNickName = data[0]['nicknames'].includes(search)
+        })
+        console.log(inNickName)
+        if (inNickName === false) {
+            const updateresult = await User.findOneAndUpdate({_id:id}, {$push: {nicknames: search}})
+        }
+
+        await User.findOneAndUpdate({_id:id},{
+            $set: {representationNickname:search,
+            tiers:{
+                tier: data['tiers'][0], 
+                rank: data['tiers'][1], 
+                leaguePoint: data['tiers'][2]
+            },
+            recentgames: myRecentGame
+        }
+        });
         // User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
         // function(err, res) {
         //     if (err) { 
@@ -66,15 +108,7 @@ router.post('/test', async (req, res) => {
     //     return data[0] 
     // })
 
-    // 유저 업데이트 하는 코드
-    // User.update({_id:myid}, {tiers:{tier:'벌레티넘', rank:'IV', leaguePoint:10}},
-    // function(err, res) {
-    //     if (err) { 
-    //         callback(err, null);
-    //     } else { 
-    //         callback(null, res);
-    //     }
-    // });
+
 
 })
 
