@@ -1,24 +1,23 @@
-const Event = require('../../models/event');
 const User = require('../../models/user');
 const Recruitment = require('../../models/recruitment');
 // const Applicant = require('../../models/applicant');
 
-const events = async eventIds => {
-    try {
-        const events = await Event.find({ _id: { $in: eventIds } });
-        events.map(event => {
-        return {
-            ...event._doc,
-            _id: event.id,
-            date: new Date(event._doc.date).toISOString(),
-            creator: user.bind(this, event.creator)
-        };
-        });
-        return events;
-    } catch (err) {
-        throw err;
-    }
-};
+// const events = async eventIds => {
+//     try {
+//         const events = await Event.find({ _id: { $in: eventIds } });
+//         events.map(event => {
+//         return {
+//             ...event._doc,
+//             _id: event.id,
+//             date: new Date(event._doc.date).toISOString(),
+//             creator: user.bind(this, event.creator)
+//         };
+//         });
+//         return events;
+//     } catch (err) {
+//         throw err;
+//     }
+// };
 
 // const user = async userId => {
 //     try {
@@ -49,21 +48,21 @@ const recruitment = async recruitmentId => {
 
 
 module.exports = {
-    events: async () => {
-        try {
-            const events = await Event.find();
-            return events.map(event => {
-                return {
-                ...event._doc,
-                _id: event.id,
-                date: new Date(event._doc.date).toISOString(),
-                creator: user.bind(this, event._doc.creator)
-                };
-            });
-        } catch (err) {
-           throw err;
-        }
-    },
+    // events: async () => {
+    //     try {
+    //         const events = await Event.find();
+    //         return events.map(event => {
+    //             return {
+    //             ...event._doc,
+    //             _id: event.id,
+    //             date: new Date(event._doc.date).toISOString(),
+    //             creator: user.bind(this, event._doc.creator)
+    //             };
+    //         });
+    //     } catch (err) {
+    //        throw err;
+    //     }
+    // },
 
     recruitments: async () => {
         try {
@@ -74,7 +73,9 @@ module.exports = {
                     _id: recruitment.id,
                     userId: recruitment.userId,
                     position: recruitment.position,
-                    status: recruitment.status
+                    status: recruitment.status,
+                    created_at : recruitment.created_at,
+                    updated_at : recruitment.updated_at
                 };
             });
         } catch (err) {
@@ -100,7 +101,9 @@ module.exports = {
                     majorPosition: user.majorPosition,
                     minorPosition: user.minorPosition,
                     apiUpdatedAt: user.apiUpdatedAt,
-                    recentgames: user.recentgames
+                    recentgames: user.recentgames,
+                    created_at : recruitment.created_at,
+                    updated_at : recruitment.updated_at
                 }
             })
         } catch (err) {
@@ -129,36 +132,36 @@ module.exports = {
          }
     },
 
-    createEvent: async args => {
-        const event = new Event({
-        title: args.eventInput.title,
-        description: args.eventInput.description,
-        price: +args.eventInput.price,
-        date: new Date(args.eventInput.date),
-        creator: '5db63fe7e7b9d0134436cc22'
-        });
-        let createdEvent;
-        try {
-            const result = await event.save();
-            createdEvent = {
-                ...result._doc,
-                _id: result._doc._id.toString(),
-                date: new Date(event._doc.date).toISOString(),
-                creator: user.bind(this, result._doc.creator)
-            };
-            const creator = await User.findById('5db63fe7e7b9d0134436cc22');
+    // createEvent: async args => {
+    //     const event = new Event({
+    //     title: args.eventInput.title,
+    //     description: args.eventInput.description,
+    //     price: +args.eventInput.price,
+    //     date: new Date(args.eventInput.date),
+    //     creator: '5db63fe7e7b9d0134436cc22'
+    //     });
+    //     let createdEvent;
+    //     try {
+    //         const result = await event.save();
+    //         createdEvent = {
+    //             ...result._doc,
+    //             _id: result._doc._id.toString(),
+    //             date: new Date(event._doc.date).toISOString(),
+    //             creator: user.bind(this, result._doc.creator)
+    //         };
+    //         const creator = await User.findById('5db63fe7e7b9d0134436cc22');
 
-            if (!creator) {
-                throw new Error('User not found.');
-            }
-            //creator.createdEvents.push(event);
-            await creator.save();
-            return createdEvent;
-        } catch (err) {
-            console.log(err);
-            throw err;
-        }
-    },
+    //         if (!creator) {
+    //             throw new Error('User not found.');
+    //         }
+    //         //creator.createdEvents.push(event);
+    //         await creator.save();
+    //         return createdEvent;
+    //     } catch (err) {
+    //         console.log(err);
+    //         throw err;
+    //     }
+    // },
 
     createUser: async args => {
         try{
@@ -170,7 +173,11 @@ module.exports = {
                 username: args.createUserInput.username
             });
             const result = await user.save();
-            return { ...result._doc, _id: result.id, username: user.username};
+            return { 
+                ...result._doc,
+                _id: result.id,
+                username: user.username
+            };
         } catch (err) {
             throw err;
         }
@@ -182,7 +189,14 @@ module.exports = {
             const existRecruitment = await Recruitment.findOne({ userId : userId });
             if(existRecruitment) {
                 const updateRecuritment = await existRecruitment.update( {status: true} );
-                return { ...updateRecuritment._doc, userId: updateRecuritment.userId, position: updateRecuritment.position, status: updateRecuritment.status, timestamps: updateRecuritment.timestamps};
+                return { 
+                    ...updateRecuritment._doc,
+                    userId: updateRecuritment.userId,
+                    position: updateRecuritment.position,
+                    status: updateRecuritment.status,
+                    created_at : recruitment.created_at,
+                    updated_at : recruitment.updated_at
+                };
             }
             else {
                 const recruitment = new Recruitment({
@@ -191,7 +205,14 @@ module.exports = {
                     status: true
                 });
                 const result = await recruitment.save();
-                return { ...result._doc, userId: recruitment.userId, position: recruitment.position, status: recruitment.status, timestamps: recruitment.timestamps};
+                return { 
+                    ...result._doc,
+                    userId: recruitment.userId,
+                    position: recruitment.position,
+                    status: recruitment.status,
+                    created_at : recruitment.created_at,
+                    updated_at : recruitment.updated_at
+                };
             }
             
         } catch (err) {

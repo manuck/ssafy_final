@@ -1,14 +1,6 @@
 const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
-type Event {
-    _id: ID!
-    title: String!
-    description: String!
-    price: Float!
-    date: String!
-    creator: User!
-}
 type User {
     _id: ID!
     username: String!
@@ -18,7 +10,9 @@ type User {
     majorPosition: String!
     minorPosition: String!
     apiUpdatedAt: String!
-    recentgames :[Game]
+    recentgames : [Game]
+    created_at : String!
+    updated_at : String!
 }
 type Tier {
     tier: String!
@@ -37,6 +31,8 @@ type Recruitment {
     userId: ID!
     position: String!
     status: Boolean!
+    created_at : String!
+    updated_at : String!
 }
 type RecruitmentAndUser {
     _id: ID!
@@ -51,16 +47,14 @@ type RecruitmentAndUser {
     minorPosition: String!
     apiUpdatedAt: String!
     recentgames :[Game]
+    created_at : String!
+    updated_at : String!
 }
 
 
 
-input CreateEventInput {
-    title: String!
-    description: String!
-    price: Float!
-    date: String!
-}
+
+
 input CreateUserInput {
     username: String!
 }
@@ -100,7 +94,6 @@ input SearchUserInput {
 
 
 type RootQuery {
-    events: [Event!]!
     users: [User!]!
     recruitments: [Recruitment!]!
     recruitmentsAndUsers: [RecruitmentAndUser]!
@@ -108,7 +101,6 @@ type RootQuery {
     getUserByUsername(searchUserInput: SearchUserInput): User!
 }
 type RootMutation {
-    createEvent(eventInput: CreateEventInput): Event
     createUser(createUserInput: CreateUserInput): User
     createRecruitment(recruitmentInput: CreateRecruitmentInput): Recruitment
     updateUserAddNickName(updateUserAddNickNameInput: UpdateUserAddNickNameInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]):User
