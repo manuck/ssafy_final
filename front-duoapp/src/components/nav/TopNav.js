@@ -24,7 +24,7 @@ const TopNav = () => {
         const username = '';
         await res.json().then(data => {
             setUser(data);
-            console.log(data);
+            // console.log(data);
         });
     }
     // const user = {
