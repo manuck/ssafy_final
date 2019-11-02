@@ -30,7 +30,7 @@ const ProfileRegister = () => {
 
     const findName = async() => {
         const nickname = document.querySelector('.accounts .form input').value;
-        console.log(nickname);
+        console.log('input value', nickname);
         try {
             const res = await fetch('http://localhost:4000/test', {
                 method: 'POST',
@@ -44,7 +44,6 @@ const ProfileRegister = () => {
         } catch (err) {
             console.log(err);
         }
-        console.log('after fetch in frontend')
     }
     return (
         <div className="accounts cardview">

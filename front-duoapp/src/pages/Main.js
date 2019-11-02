@@ -1,6 +1,7 @@
 import React from 'react';
 import RecruitRegister from '../components/recruit/RecruitRegister';
 import RecruitList from '../components/recruit/RecruitList';
+import RecruitDetail from '../components/recruit/RecruitDetail';
 import './Main.scss';
 
 const Main = () => {
@@ -14,6 +15,7 @@ const Main = () => {
         <div className="home">
             <RecruitRegister/>
             <RecruitList/>
+            <RecruitDetail/>
         </div>
     );
 };
