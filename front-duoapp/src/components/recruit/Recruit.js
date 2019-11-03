@@ -64,6 +64,10 @@ const Recruit = props => {
         // console.log(calculatedTime);
         return String(new Date(calculatedTime).toLocaleDateString())
     };
+    const modalShow = () => {
+        document.querySelector('.detail__wrap').classList.remove("modal--hide");
+        document.querySelector('.detail__wrap').classList.add("modal--show");
+    };
     // console.log('each', each);
     return (
         <div className="recruit__each">
@@ -107,7 +111,7 @@ const Recruit = props => {
                 <div className="time">
                     {getCreatedTime(each.updated_at)}
                 </div>
-                <button className="submit">
+                <button onClick={modalShow} className="submit">
                     신청하기
                 </button>
             </div>
@@ -115,4 +119,28 @@ const Recruit = props => {
     );
 };
 
+const getEmblem = tier => {
+    switch(tier) {
+        case 'IRON':
+            return <img alt="Emblem_Iron" src={Emblem_Iron} />;
+        case 'BRONZE':
+            return <img alt="Emblem_Bronze" src={Emblem_Bronze} />;
+        case 'SILVER':
+            return <img alt="Emblem_Silver" src={Emblem_Silver} />;
+        case 'GOLD':
+            return <img alt="Emblem_Gold" src={Emblem_Gold} />;
+        case 'PLATINUM':
+            return <img alt="Emblem_Platinum" src={Emblem_Platinum} />;
+        case 'DIAMOND':
+            return <img alt="Emblem_Diamond" src={Emblem_Diamond} />;
+        case 'MASTER':
+            return <img alt="Emblem_Master" src={Emblem_Master} />;
+        case 'GRANDMASTER':
+            return <img alt="Emblem_Grandmaster" src={Emblem_Grandmaster} />;
+        case 'CHALLENGER':
+            return <img alt="Emblem_Challenger" src={Emblem_Challenger} />;
+    }
+};
+
 export default Recruit;
+export { getEmblem };
