@@ -4,6 +4,7 @@ import './RecruitList.scss';
 
 const RecruitList = () => {
     const [recruitList, setRecruitList] = useState([]);
+    const [allList, setAllList] = useState([]);
     const requestBody = {
         query: `
             query {
@@ -13,6 +14,7 @@ const RecruitList = () => {
                     position,
                     status,
                     created_at,
+                    updated_at,
                     recentgames {
                         win,
                         kills,
@@ -38,16 +40,53 @@ const RecruitList = () => {
             }
         });
         await res.json().then(data => {
+            setAllList(data.data.recruitmentsAndUsers);
             setRecruitList(data.data.recruitmentsAndUsers);
             // console.log(data.data.recruitmentsAndUsers);
         });
     };
+    // if (each["position"] === "TOP"){
+    //     return (
+    //     <Recruit
+    //     key={each._id}
+    //     each={each}
+    //     />
+    //     )
+    // }
+    const positionList = num => {
+        console.log('버튼 이벤트')
+        if (num===1) {
+            console.log(recruitList)
+            setRecruitList(allList.filter(word => word["position"] =="TOP"))
+        }
+        else if (num===2) {
+            setRecruitList(allList.filter(word => word["position"] =="JUNGLE"))
+        }
+        else if (num===3) {
+            setRecruitList(allList.filter(word => word["position"] =="MID"))
+        }
+        else if (num===4) {
+            setRecruitList(allList.filter(word => word["position"] =="AD"))
+        }
+        else if (num===5) {
+            setRecruitList(allList.filter(word => word["position"] =="SUPPORT"))
+        }
+        else if (num===6) {
+            setRecruitList(allList)
+        }
+        else if (num===7) {
+            console.log('나의 티어에 맞게')
 
+        }
+    }
+    console.log('#################################################################')
+    console.log(recruitList)
+    console.log('#################################################################')
     const recruitPostList = recruitList.map((each, index) => {
-        // console.log(each)
+        // console.log(resEach)
         return (
             <Recruit
-                // key={each._id}
+                key={each._id}
                 each={each}
             />
         )
@@ -57,6 +96,15 @@ const RecruitList = () => {
     }, []);
     return (
         <div className="matchnow__list">
+            <div className="recruit__filter">
+                <button onClick={() => {positionList(1)}}>TOP</button>
+                <button onClick={() => {positionList(2)}}>JUNGLE</button>
+                <button onClick={() => {positionList(3)}}>MID</button>
+                <button onClick={() => {positionList(4)}}>AD</button>
+                <button onClick={() => {positionList(5)}}>SUPPORT</button>
+                <button onClick={() => {positionList(6)}}>전체보기</button>
+                <button onClick={() => {positionList(7)}}>나의 티어에 맞게</button>
+            </div>
             {recruitPostList}
             {/* <Recruit/> */}
         </div>

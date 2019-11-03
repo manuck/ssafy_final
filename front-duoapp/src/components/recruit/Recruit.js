@@ -17,7 +17,7 @@ import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger
 import ChampionIndex from '../../assets/data/championIndex.json';
 
 const Recruit = props => {
-    console.log('props', props);
+    // console.log('props', props);
     const each = props.each;
     const getEmblem = tier => {
         switch(tier) {
@@ -61,10 +61,10 @@ const Recruit = props => {
     const getCreatedTime = time => {
         // const calculatedTime = Date.now() - Number(time);
         const calculatedTime = Number(time);
-        console.log(calculatedTime);
+        // console.log(calculatedTime);
         return String(new Date(calculatedTime).toLocaleDateString())
     };
-    console.log('each', each);
+    // console.log('each', each);
     return (
         <div className="recruit__each">
             <div className="column1">
@@ -105,10 +105,10 @@ const Recruit = props => {
                     {each.status ? <span className="waiting">대기중</span> : '게임중'}
                 </div>
                 <div className="time">
-                    {getCreatedTime(each.created_at)}
+                    {getCreatedTime(each.updated_at)}
                 </div>
                 <button className="submit">
-                    더 보기
+                    신청하기
                 </button>
             </div>
         </div>

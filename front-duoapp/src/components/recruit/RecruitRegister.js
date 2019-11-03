@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './RecruitRegister.scss';
-import TopIcon from '../../assets/icons/ranked-positions/Position_Challenger-Top.png';
-import JungleIcon from '../../assets/icons/ranked-positions/Position_Challenger-Jungle.png';
-import MidIcon from '../../assets/icons/ranked-positions/Position_Challenger-Mid.png';
-import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot.png';
-import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
+// import TopIcon from '../../assets/icons/ranked-positions/Position_Challenger-Top.png';
+// import JungleIcon from '../../assets/icons/ranked-positions/Position_Challenger-Jungle.png';
+// import MidIcon from '../../assets/icons/ranked-positions/Position_Challenger-Mid.png';
+// import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot.png';
+// import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
 
 const RecruitRegister = () => {
     const [user, setUser] = useState({});
     const [registerResult, setState] = useState({});
     const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
-        console.log('user', user);
+        // console.log('user', user);
         const res = await fetch('http://localhost:4000/authtest', {
             method: 'GET',
             mode: 'cors',
@@ -46,7 +46,7 @@ const RecruitRegister = () => {
         });
         await res.json().then(data => {
             setState(data);
-            console.log('data22',data);
+            // console.log('data22',data);
         });
     };
     useEffect(() => {
@@ -63,15 +63,15 @@ const RecruitRegister = () => {
                     <div className="register__content">
                         <div className="position__radio__wrap">
                             <input type="radio" name="position" id="top" />
-                            <label for="top">TOP</label>
+                            <label htmlFor="top">TOP</label>
                             <input type="radio" name="position" id="jungle" />
-                            <label for="jungle">JUNGLE</label>
+                            <label htmlFor="jungle">JUNGLE</label>
                             <input type="radio" name="position" id="mid" />
-                            <label for="mid">MID</label>
+                            <label htmlFor="mid">MID</label>
                             <input type="radio" name="position" id="ad" />
-                            <label for="ad">AD</label>
+                            <label htmlFor="ad">AD</label>
                             <input type="radio" name="position" id="support" />
-                            <label for="support">SUPPORT</label>
+                            <label htmlFor="support">SUPPORT</label>
                         </div>
                         {/* <div className="position">
                             <div className="top">

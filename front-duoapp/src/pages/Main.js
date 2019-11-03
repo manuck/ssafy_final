@@ -1,19 +1,21 @@
 import React from 'react';
-// import TopNav from '../components/nav/TopNav';
 import RecruitRegister from '../components/recruit/RecruitRegister';
 import RecruitList from '../components/recruit/RecruitList';
-// import Footer from '../components/Footer';
 import './Main.scss';
+import RecruitFilter from '../components/recruit/RecruitFilter';
 
 const Main = () => {
     return (
+        // <div className="home">
+        //     <div className="content">
+        //         <RecruitRegister/>
+        //         <RecruitList/>
+        //     </div>
+        // </div>
         <div className="home">
-            {/* <TopNav/> */}
-            <div className="content">
-                <RecruitRegister/>
-                <RecruitList/>
-            </div>
-            {/* <Footer/> */}
+            <RecruitRegister/>
+            {/* <RecruitFilter/> */}
+            <RecruitList/>
         </div>
     );
 };
