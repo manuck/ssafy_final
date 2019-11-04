@@ -17,7 +17,7 @@ import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger
 import ChampionIndex from '../../assets/data/championIndex.json';
 
 const Recruit = props => {
-    console.log('props', props);
+    // console.log('props', props);
     const each = props.each;
     const getEmblem = tier => {
         switch(tier) {
@@ -62,7 +62,6 @@ const Recruit = props => {
         const now = new Date();
         const old = new Date(Number(time));
         const gap = (now.getTime() - old.getTime()) / 1000;
-        console.log(gap);
         if (gap < 60) return String(gap) + '초 전'
         else if (gap < 3600) return String(Math.floor(gap/60)) + '분 전'
         else if (gap < 86400) return String(Math.floor(gap/3600)) + '시간 전'
