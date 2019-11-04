@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Recruit from './Recruit';
 import './RecruitList.scss';
 
+
+
 const RecruitList = () => {
     const [recruitList, setRecruitList] = useState([]);
     const [allList, setAllList] = useState([]);
@@ -76,12 +78,11 @@ const RecruitList = () => {
         }
         else if (num===7) {
             console.log('나의 티어에 맞게')
+            // 유저정보좀 가져와줘 제발~~~~~~~~~
 
         }
     }
-    console.log('#################################################################')
-    console.log(recruitList)
-    console.log('#################################################################')
+
     const recruitPostList = recruitList.map((each, index) => {
         // console.log(resEach)
         return (

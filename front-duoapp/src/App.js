@@ -7,6 +7,7 @@ import RecruitDetail from './pages/RecruitDetail';
 import TopNav from './components/nav/TopNav';
 import Footer from './components/Footer';
 import './App.scss';
+import store from './store'
 
 const App = () => {
     return (

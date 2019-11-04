@@ -3,8 +3,28 @@ import { Link } from 'react-router-dom';
 // import TopNavLogo from './TopNavLogo';
 // import TopNavUser from './TopNavUser';
 import './TopNav.scss';
+import { createStore } from 'redux'
+import {mymy} from '../../store' 
+const initialUser = Object
+
+let afterData = Object
+
+const changeUser = {
+    type: 'Change_User',
+}
+
+const reducer = (state = initialUser, action) => {
+    switch (action.type) {
+        case 'Change_User':
+            state = afterData
+    }
+    return state
+}
+
+const store = createStore(reducer)
 
 const TopNav = () => {
+    console.log(store.getState())
     const [user, setUser] = useState({});
     useEffect(() => {
         // profile에서 유저 정보 가져오기
@@ -26,7 +46,12 @@ const TopNav = () => {
             // console.log('user:', res.json().then(data => console.log(data.username)));
             const username = '';
             await res.json().then(data => {
-                console.log('userdata', data);
+                afterData = data
+                store.dispatch(changeUser)
+                console.log(store.getState())
+                mymy = data
+                // console.log('userdata', data);
+                { this.props.onCreate(data) } 
                 // console.log('user1', user);
                 setUser(data);
                 // console.log('user2', user);

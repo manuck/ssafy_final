@@ -5,7 +5,41 @@ const apiRouter = require('./api');
 const authCheck = require('../middlewares/auth');
 const User = require('../models/user');
 const Recruitment = require('../models/recruitment');
-    
+// const mongooseWatch = require('mongoose-watch');
+
+
+// var mongosee = require('mongosee-watch')();
+// Recruitment.find().watch( 'lastMod', function (err, fn){
+//     fn.start(function(err, doc){
+// 		console.log("Player :");
+// 		console.log(doc);
+// 		fn.stop(function(){
+// 			console.log('Close the watch!');
+// 		});
+// 	});
+//  });
+
+const myRecruitment = Recruitment.find({userId:"5dba430f6a757b55007deda7"},function(err,data){
+    if (err) return handleError(err);
+    // console.log('find all data => ',data)
+    // // data[0]['mytier']['tier'] = '플래티넘'
+    // console.log(data[0]['tiers'])
+    // // User.nickname = '무적꼬부기짱짱짱'
+    console.log(data[0])
+    return data[0] 
+})
+
+const collection = Recruitment.collection('5dba932a98883f1fe02d3a61');
+const changeStream = collection.watch();
+changeStream.on('change', next => {
+  // process next document
+  console.log('바뀜?')
+});
+
+// const changeStream = Recruitment.watch().on('change', change => console.log(change));
+
+
+
 router.get('/authtest', authCheck, async(req, res) => {
     const { _id } = req.decoded;
     const user = await User.findById(_id);
