@@ -12,7 +12,7 @@ const RecruitRegister = () => {
     const [registerResult, setState] = useState({});
     const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
-        console.log('user', user);
+        // console.log('user', user);
         const res = await fetch('http://localhost:4000/authtest', {
             method: 'GET',
             mode: 'cors',
@@ -46,7 +46,7 @@ const RecruitRegister = () => {
         });
         await res.json().then(data => {
             setState(data);
-            console.log('data22',data);
+            // console.log('data22',data);
         });
     };
     useEffect(() => {
@@ -62,34 +62,27 @@ const RecruitRegister = () => {
                     </div>
                     <div className="register__content">
                         <div className="position__radio__wrap">
-                            <input type="radio" name="position" id="top" />
-                            <label for="top">TOP</label>
-                            <input type="radio" name="position" id="jungle" />
-                            <label for="jungle">JUNGLE</label>
-                            <input type="radio" name="position" id="mid" />
-                            <label for="mid">MID</label>
-                            <input type="radio" name="position" id="ad" />
-                            <label for="ad">AD</label>
-                            <input type="radio" name="position" id="support" />
-                            <label for="support">SUPPORT</label>
-                        </div>
-                        {/* <div className="position">
-                            <div className="top">
+                            <label htmlFor="top">
+                                <input type="radio" name="position" id="top" />
                                 <img alt="top-icon" src={TopIcon} />
-                            </div>
-                            <div className="jungle">
+                            </label>
+                            <label htmlFor="jungle">
+                                <input type="radio" name="position" id="jungle" />
                                 <img alt="jungle-icon" src={JungleIcon} />
-                            </div>
-                            <div className="mid">
+                            </label>
+                            <label htmlFor="mid">
+                                <input type="radio" name="position" id="mid" />
                                 <img alt="mid-icon" src={MidIcon} />
-                            </div>
-                            <div className="ad">
+                            </label>
+                            <label htmlFor="ad">
+                                <input type="radio" name="position" id="ad" />
                                 <img alt="bot-icon" src={BotIcon} />
-                            </div>
-                            <div className="support">
+                            </label>
+                            <label htmlFor="support">
+                                <input type="radio" name="position" id="support" />
                                 <img alt="support-icon" src={SupportIcon} />
-                            </div>
-                        </div> */}
+                            </label>
+                        </div>
                         <div className="submit">
                             <button onClick={registerSubmit} className="button">
                                 등록
@@ -101,13 +94,13 @@ const RecruitRegister = () => {
                 // 대표 소환사가 등록되지 않은 경우
                 <Link to="/profile" className="register__form">
                     <div className="register__title">
-                        대표 소환사를 등록해 주세요.
+                        대표 소환사를 등록해 주세요
                     </div>
                 </Link>
             ) : (
                 // 로그인 하지 않은 경우
                 <div>
-                    d
+                    로그인 해 주세요
                 </div>
             )}
         </React.Fragment>
