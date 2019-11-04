@@ -53,6 +53,7 @@ type RecruitmentAndUser {
 type RecruitmentAndApplicant {
     _id: ID!
     position: String!
+    status: Boolean!
     writer : User!
     applicants: [User]
     created_at : String!
