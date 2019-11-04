@@ -17,7 +17,7 @@ import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger
 import ChampionIndex from '../../assets/data/championIndex.json';
 
 const Recruit = props => {
-    // console.log('props', props);
+    console.log('props', props);
     const each = props.each;
     const getEmblem = tier => {
         switch(tier) {
@@ -82,10 +82,10 @@ const Recruit = props => {
         <div className="recruit__each">
             <div className="column1">
                 <div className="emblem">
-                    {getEmblem(each.tiers.tier)}
+                    {getEmblem(each.writer.tiers.tier)}
                 </div>
                 <div className="tier">
-                    {each.tiers.tier} {each.tiers.rank}
+                    {each.writer.tiers.tier} {each.writer.tiers.rank}
                 </div>
             </div>
             <div className="column2">
@@ -98,7 +98,7 @@ const Recruit = props => {
             </div>
             <div className="column3">
                 <div className="records">
-                    {each.recentgames.map((game, index) => (
+                    {each.writer.recentgames.map((game, index) => (
                         <div className="record" key={index}>
                             <div className="champion">
                                 {getChampionImage(game.champion)}

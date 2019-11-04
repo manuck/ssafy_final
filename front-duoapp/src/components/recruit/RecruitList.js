@@ -6,25 +6,28 @@ const RecruitList = () => {
     const [recruitList, setRecruitList] = useState([]);
     const requestBody = {
         query: `
-            query {
-                recruitmentsAndUsers {
+            query{
+                recruitmentAndWriters{
                     _id,
-                    userId,
                     position,
                     status,
                     created_at,
                     updated_at,
-                    recentgames {
-                        win,
-                        kills,
-                        deaths,
-                        assists,
-                        champion
-                    },
-                    tiers {
-                        tier,
-                        rank,
-                        leaguePoint,
+                    writer {
+                        username,
+                        representationNickname,
+                        tiers {
+                            tier,
+                            rank,
+                            leaguePoint
+                        },
+                        recentgames {
+                            win,
+                            kills,
+                            deaths,
+                            assists,
+                            champion
+                        }
                     }
                 }
             }
@@ -39,8 +42,8 @@ const RecruitList = () => {
             }
         });
         await res.json().then(data => {
-            setRecruitList(data.data.recruitmentsAndUsers);
-            // console.log(data.data.recruitmentsAndUsers);
+            console.log(data.data.recruitmentAndWriters);
+            setRecruitList(data.data.recruitmentAndWriters);
         });
     };
 

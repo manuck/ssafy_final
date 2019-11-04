@@ -11,19 +11,23 @@ const RecruitRegister = () => {
     const [user, setUser] = useState({});
     const [registerResult, setState] = useState({});
     const getUsername = async() => {
-        const token = document.cookie.split("MnMsToken=");
-        // console.log('user', user);
-        const res = await fetch('http://localhost:4000/authtest', {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'applicatoin/json',
-                'authorization': token[1]
-            },
-        });
-        await res.json().then(data => {
-            setUser(data);
-        });
+        try {
+            const token = document.cookie.split("MnMsToken=");
+            // console.log('user', user);
+            const res = await fetch('http://localhost:4000/authtest', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'applicatoin/json',
+                    'authorization': token[1]
+                },
+            });
+            await res.json().then(data => {
+                setUser(data);
+            });
+        } catch(err) {
+            console.log(err);
+        }
     };
     const registerSubmit = async() => {
         const selectedPosition = document.querySelector('input[name="position"]:checked').id.toUpperCase();
@@ -46,7 +50,6 @@ const RecruitRegister = () => {
         });
         await res.json().then(data => {
             setState(data);
-            // console.log('data22',data);
         });
     };
     useEffect(() => {
