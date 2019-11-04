@@ -1,69 +1,30 @@
 const User = require('../../models/user');
 const Recruitment = require('../../models/recruitment');
 const Applicant = require('../../models/applicant');
-const mongoose = require('mongoose');
-
-// const events = async eventIds => {
-//     try {
-//         const events = await Event.find({ _id: { $in: eventIds } });
-//         events.map(event => {
-//         return {
-//             ...event._doc,
-//             _id: event.id,
-//             date: new Date(event._doc.date).toISOString(),
-//             creator: user.bind(this, event.creator)
-//         };
-//         });
-//         return events;
-//     } catch (err) {
-//         throw err;
-//     }
-// };
-
-// const user = async userId => {
-//     try {
-//         const user = await User.findById(userId);
-//         return {
-//         ...user._doc,
-//         _id: user.id,
-//         createdEvents: events.bind(this, user._doc.createdEvents)
-//         };
-//     } catch (err) {
-//         throw err;
-//     }
-// };
-
-const recruitment = async recruitmentId => {
-    try {
-        const recruitment = await Recruitment.findById(recruitmentId);
-        return {
-            ...recruitment._doc,
-            _id:  recruitment.id,
-            position: recruitment.position,
-            status: recruitment.status
-        };
-    } catch (err) {
-        throw err;
-    }
-}
-
 
 module.exports = {
-    // events: async () => {
-    //     try {
-    //         const events = await Event.find();
-    //         return events.map(event => {
-    //             return {
-    //             ...event._doc,
-    //             _id: event.id,
-    //             date: new Date(event._doc.date).toISOString(),
-    //             creator: user.bind(this, event._doc.creator)
-    //             };
-    //         });
-    //     } catch (err) {
-    //        throw err;
-    //     }
-    // },
+    users: async () => {
+        try {
+            const users = await User.find();
+            return users.map(user => {
+                return {
+                    _id: user._id,
+                    username: user.username,
+                    nicknames: user.nicknames,
+                    representationNickname: user.representationNickname,
+                    tiers: user.tiers,
+                    majorPosition: user.majorPosition,
+                    minorPosition: user.minorPosition,
+                    apiUpdatedAt: user.apiUpdatedAt,
+                    recentgames: user.recentgames,
+                    created_at: user.created_at,
+                    updated_at: user.updated_at
+                }
+            })
+        } catch (err) {
+            throw err;
+         }
+    },
 
     recruitments: async () => {
         try {
@@ -154,37 +115,6 @@ module.exports = {
             throw err;
          }
     },
-
-    // createEvent: async args => {
-    //     const event = new Event({
-    //     title: args.eventInput.title,
-    //     description: args.eventInput.description,
-    //     price: +args.eventInput.price,
-    //     date: new Date(args.eventInput.date),
-    //     creator: '5db63fe7e7b9d0134436cc22'
-    //     });
-    //     let createdEvent;
-    //     try {
-    //         const result = await event.save();
-    //         createdEvent = {
-    //             ...result._doc,
-    //             _id: result._doc._id.toString(),
-    //             date: new Date(event._doc.date).toISOString(),
-    //             creator: user.bind(this, result._doc.creator)
-    //         };
-    //         const creator = await User.findById('5db63fe7e7b9d0134436cc22');
-
-    //         if (!creator) {
-    //             throw new Error('User not found.');
-    //         }
-    //         //creator.createdEvents.push(event);
-    //         await creator.save();
-    //         return createdEvent;
-    //     } catch (err) {
-    //         console.log(err);
-    //         throw err;
-    //     }
-    // },
 
     createUser: async args => {
         try{
@@ -281,7 +211,6 @@ module.exports = {
             if(!user) {
                 throw new Error('User not exists');
             }
-            console.log(user.username);
             const updateResult = await user.update(
                 {
                     $set: { 
