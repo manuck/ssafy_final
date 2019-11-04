@@ -34,19 +34,11 @@ type Recruitment {
     created_at : String!
     updated_at : String!
 }
-type RecruitmentAndUser {
+type RecruitmentAndWriter {
     _id: ID!
-    userId: ID!
     position: String!
     status: Boolean!
-    username: String!
-    nicknames: [String]
-    representationNickname: String!
-    tiers: Tier!
-    majorPosition: String!
-    minorPosition: String!
-    apiUpdatedAt: String!
-    recentgames :[Game]
+    writer: User!
     created_at : String!
     updated_at : String!
 }
@@ -122,7 +114,7 @@ input SearchUserInput {
 type RootQuery {
     users: [User!]!
     recruitments: [Recruitment!]!
-    recruitmentsAndUsers: [RecruitmentAndUser]!
+    recruitmentAndWriters: [RecruitmentAndWriter]!
     recruitmentAndApplicants(recruitId: ID): RecruitmentAndApplicant!
     getUser(userId : ID): User!
     getUserByUsername(searchUserInput: SearchUserInput): User!

@@ -84,7 +84,7 @@ module.exports = {
          }
     },
 
-    recruitmentsAndUsers: async () => {
+    recruitmentAndWriters: async () => {
         try {
             const recruitments = await Recruitment.find().sort({updated_at: -1});
             return recruitments.map(async recruitment => {
@@ -92,17 +92,9 @@ module.exports = {
                 return {
                     ...recruitment._doc,
                     _id: recruitment.id,
-                    userId: recruitment.userId,
                     position: recruitment.position,
                     status: recruitment.status,
-                    username: user.username,
-                    nicknames: user.nicknames,
-                    representationNickname: user.representationNickname,
-                    tiers: user.tiers,
-                    majorPosition: user.majorPosition,
-                    minorPosition: user.minorPosition,
-                    apiUpdatedAt: user.apiUpdatedAt,
-                    recentgames: user.recentgames,
+                    writer: user,
                     created_at : recruitment.created_at,
                     updated_at : recruitment.updated_at
                 }
