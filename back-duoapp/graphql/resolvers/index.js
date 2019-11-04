@@ -85,7 +85,7 @@ module.exports = {
 
     recruitmentsAndUsers: async () => {
         try {
-            const recruitments = await Recruitment.find();
+            const recruitments = await Recruitment.find().sort({updated_at:-1});
             return recruitments.map(async recruitment => {
                 const user = await User.findById({_id: recruitment.userId});
                 return {

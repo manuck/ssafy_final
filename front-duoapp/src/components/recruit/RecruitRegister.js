@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './RecruitRegister.scss';
-// import TopIcon from '../../assets/icons/ranked-positions/Position_Challenger-Top.png';
-// import JungleIcon from '../../assets/icons/ranked-positions/Position_Challenger-Jungle.png';
-// import MidIcon from '../../assets/icons/ranked-positions/Position_Challenger-Mid.png';
-// import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot.png';
-// import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
+import TopIcon from '../../assets/icons/ranked-positions/Position_Challenger-Top.png';
+import JungleIcon from '../../assets/icons/ranked-positions/Position_Challenger-Jungle.png';
+import MidIcon from '../../assets/icons/ranked-positions/Position_Challenger-Mid.png';
+import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot.png';
+import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
 
 const RecruitRegister = () => {
     const [user, setUser] = useState({});
@@ -62,34 +62,27 @@ const RecruitRegister = () => {
                     </div>
                     <div className="register__content">
                         <div className="position__radio__wrap">
-                            <input type="radio" name="position" id="top" />
-                            <label htmlFor="top">TOP</label>
-                            <input type="radio" name="position" id="jungle" />
-                            <label htmlFor="jungle">JUNGLE</label>
-                            <input type="radio" name="position" id="mid" />
-                            <label htmlFor="mid">MID</label>
-                            <input type="radio" name="position" id="ad" />
-                            <label htmlFor="ad">AD</label>
-                            <input type="radio" name="position" id="support" />
-                            <label htmlFor="support">SUPPORT</label>
-                        </div>
-                        {/* <div className="position">
-                            <div className="top">
+                            <label htmlFor="top">
+                                <input type="radio" name="position" id="top" />
                                 <img alt="top-icon" src={TopIcon} />
-                            </div>
-                            <div className="jungle">
+                            </label>
+                            <label htmlFor="jungle">
+                                <input type="radio" name="position" id="jungle" />
                                 <img alt="jungle-icon" src={JungleIcon} />
-                            </div>
-                            <div className="mid">
+                            </label>
+                            <label htmlFor="mid">
+                                <input type="radio" name="position" id="mid" />
                                 <img alt="mid-icon" src={MidIcon} />
-                            </div>
-                            <div className="ad">
+                            </label>
+                            <label htmlFor="ad">
+                                <input type="radio" name="position" id="ad" />
                                 <img alt="bot-icon" src={BotIcon} />
-                            </div>
-                            <div className="support">
+                            </label>
+                            <label htmlFor="support">
+                                <input type="radio" name="position" id="support" />
                                 <img alt="support-icon" src={SupportIcon} />
-                            </div>
-                        </div> */}
+                            </label>
+                        </div>
                         <div className="submit">
                             <button onClick={registerSubmit} className="button">
                                 등록
@@ -101,13 +94,13 @@ const RecruitRegister = () => {
                 // 대표 소환사가 등록되지 않은 경우
                 <Link to="/profile" className="register__form">
                     <div className="register__title">
-                        대표 소환사를 등록해 주세요.
+                        대표 소환사를 등록해 주세요
                     </div>
                 </Link>
             ) : (
                 // 로그인 하지 않은 경우
                 <div>
-                    d
+                    로그인 해 주세요
                 </div>
             )}
         </React.Fragment>

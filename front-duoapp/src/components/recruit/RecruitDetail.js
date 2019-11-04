@@ -15,9 +15,48 @@ const RecruitDetail = () => {
     const modalHide = () => {
         document.querySelector('.detail__wrap').classList.remove('modal--show');
         document.querySelector('.detail__wrap').classList.add('modal--hide');
-    }
+    };
+    const getApplicants = () => {
+        // recruit_id필요
+        const request_body = {
+            query: `
+            query {
+                recruitmentAndApplicants(recruitId:"5dba82c9ffd1e12700a78837") {
+                    _id,
+                    position,
+                    status,
+                    created_at,
+                    updated_at,
+                    writer {
+                        username,
+                        tiers {
+                            tier,
+                            rank,
+                            leaguePoint
+                        }
+                    },
+                    applicants {
+                        username,
+                        tiers {
+                            tier,
+                            rank,
+                            leaguePoint
+                        }
+                        recentgames {
+                            win,
+                            kills,
+                            deaths,
+                            assists,
+                            champion
+                        }
+                    }
+                }
+            }
+            `
+        }
+    };
     return (
-        <div className="detail__wrap modal--hide">
+        <div className="detail__wrap modal--show">
             <div onClick={modalHide} className="modal__bg" />
             <div className="modal__box">
                 <div className="row1">
@@ -35,6 +74,14 @@ const RecruitDetail = () => {
                             <span>pooint</span>
                         </div>
                     </div>
+                </div>
+                <div className="row3">
+                    <button className="button">
+                        신청하기
+                    </button>
+                </div>
+                <div className="comments">
+                    
                 </div>
             </div>
         </div>

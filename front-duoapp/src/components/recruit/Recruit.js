@@ -59,10 +59,19 @@ const Recruit = props => {
         return <img alt="champion" src={`http://ddragon.leagueoflegends.com/cdn/9.21.1/img/champion/${ChampionIndex[champion]}.png`} />
     };
     const getCreatedTime = time => {
-        // const calculatedTime = Date.now() - Number(time);
-        const calculatedTime = Number(time);
+        const now = new Date();
+        const old = new Date(Number(time));
+        const gap = (now.getTime() - old.getTime()) / 1000;
+        console.log(gap);
+        if (gap < 60) return String(gap) + '초 전'
+        else if (gap < 3600) return String(Math.floor(gap/60)) + '분 전'
+        else if (gap < 86400) return String(Math.floor(gap/3600)) + '시간 전'
+        else return String(Math.floor(gap/86400)) + '일 전'
+        // const calculatedTime = Number(time);
+        // const calculatedTime = Date.now();
         // console.log(calculatedTime);
-        return String(new Date(calculatedTime).toLocaleDateString())
+        // return String(new Date(calculatedTime).toLocaleDateString())
+        // return min_gap
     };
     const modalShow = () => {
         document.querySelector('.detail__wrap').classList.remove("modal--hide");
