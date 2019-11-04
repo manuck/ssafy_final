@@ -1,6 +1,7 @@
 const User = require('../../models/user');
 const Recruitment = require('../../models/recruitment');
 const Applicant = require('../../models/applicant');
+const mongoose = require('mongoose');
 
 // const events = async eventIds => {
 //     try {
@@ -85,9 +86,9 @@ module.exports = {
 
     recruitmentsAndUsers: async () => {
         try {
-            const recruitments = await Recruitment.find();
+            const recruitments = await Recruitment.find().sort({updated_at: -1});
             return recruitments.map(async recruitment => {
-                const user = await User.findById({_id: recruitment.userId}).sort({updated_at: -1});
+                const user = await User.findById({_id: recruitment.userId});
                 return {
                     ...recruitment._doc,
                     _id: recruitment.id,
@@ -110,6 +111,36 @@ module.exports = {
             throw err;
          }
     },
+
+    recruitmentAndApplicants: async args => {
+        try {
+            const recruitment = await Recruitment.findById({_id: args.recruitId});
+            if(!recruitment) {
+                throw new Error('Recruitment not exists');
+            }
+            const user = await User.findById({_id: recruitment.userId});
+            if(!user) {
+                throw new Error('User not exists');
+            }
+            const applicants = await Applicant.find({recruitmentId: args.recruitId});
+            const applicantUsers = [];
+            const result = await applicants.forEach(applicant => {
+                applicantUsers.push(User.findById({_id:applicant.userId}));
+            });
+            return {
+                _id: recruitment._id,
+                position: recruitment.position,
+                status: recruitment.status,
+                writer: user,
+                applicants: applicantUsers,
+                created_at: recruitment.created_at,
+                updated_at: recruitment.updated_at
+            }
+        } catch (err) {
+            throw err;
+         }
+    },
+
 
     getUser: async args => {
         try {
@@ -272,7 +303,9 @@ module.exports = {
                     }
                 }
             );
-            return {...updateResult._doc, username: args.updateUserInput.username,
+            return {
+                ...updateResult._doc,
+                username: args.updateUserInput.username,
                 representationNickname: args.updateUserInput.representationNickname,
                 majorPosition: args.updateUserInput.majorPosition,
                 minorPosition:  args.updateUserInput.minorPosition,
@@ -280,7 +313,51 @@ module.exports = {
                 tiers: args.updateTierInput,
                 recentgames: args.updateGameInput
             };
+        } catch (err) {
+            throw err;
+        }
+    },
 
+    updateRecruitment: async args => {
+        try {
+            const recruitment = await Recruitment.findOne({_id: args.updateRecruitmentInput.id});
+            if(!recruitment) {
+                throw new Error('Recuritment not exists');
+            }
+            const recruitmentResult = await recruitment.update(
+                {
+                    $set :{
+                        position: args.updateRecruitmentInput.position,
+                        status: true
+                    }        
+                }
+            );
+            return {    
+                ...recruitmentResult._doc,            
+                userId: recruitment.userId,          
+                position: recruitment.position,
+                status: recruitment.status,
+                created_at : recruitment.created_at,
+                updated_at : recruitment.updated_at
+            };
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    deleteUser: async args => {
+        try {          
+            const result = await User.findByIdAndDelete({_id: args.deleteUserInput});
+            return true;
+        } catch (err) {
+            throw err;
+        }
+    },
+    deleteRecruitment: async args => {
+        try {          
+            const resultA = await Applicant.deleteMany({ recruitmentId: args.deleteRecruitmentInput });
+            const resultR = await Recruitment.findByIdAndDelete({ _id: args.deleteRecruitmentInput });
+            return true;
         } catch (err) {
             throw err;
         }
@@ -288,13 +365,11 @@ module.exports = {
 
     deleteApplicant: async args => {
         try {
-            const applicant = await Applicant.findOneAndDelete({
-                userId : args.deleteApplicantInput.userId,
-                recruitmentId: args.deleteApplicantInput.recruitmentId
-            });
+            const result = await Applicant.findByIdAndDelete({_id: args.deleteApplicantInput});
             return true;
         } catch (err) {
             throw err;
         }
     }
+
 };

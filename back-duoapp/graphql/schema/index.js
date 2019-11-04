@@ -50,6 +50,14 @@ type RecruitmentAndUser {
     created_at : String!
     updated_at : String!
 }
+type RecruitmentAndApplicant {
+    _id: ID!
+    position: String!
+    writer : User!
+    applicants: [User]
+    created_at : String!
+    updated_at : String!
+}
 type Applicant {
     _id: ID!
     userId: ID!
@@ -99,13 +107,14 @@ input UpdateUserAddNickNameInput {
     username: String!
     nickname: String!
 }
+input UpdateRecruitmentInput {
+    id: String!
+    position: String!
+}
 input SearchUserInput {
     username: String!
 }
-input DeleteApplicantInput {
-    userId : String!
-    recruitmentId: String!
-}
+
 
 
 
@@ -113,6 +122,7 @@ type RootQuery {
     users: [User!]!
     recruitments: [Recruitment!]!
     recruitmentsAndUsers: [RecruitmentAndUser]!
+    recruitmentAndApplicants(recruitId: ID): RecruitmentAndApplicant!
     getUser(userId : ID): User!
     getUserByUsername(searchUserInput: SearchUserInput): User!
 }
@@ -122,7 +132,10 @@ type RootMutation {
     createApplicant(createApplicantInput: CreateApplicantInput): Applicant
     updateUserAddNickName(updateUserAddNickNameInput: UpdateUserAddNickNameInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]):User
     updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]): User
-    deleteApplicant(deleteApplicantInput: DeleteApplicantInput): Boolean
+    updateRecruitment(updateRecruitmentInput: UpdateRecruitmentInput): Recruitment
+    deleteUser(UserId: String): Boolean
+    deleteRecruitment(RecruitmentId: String): Boolean
+    deleteApplicant(applicantId: String): Boolean
 }
 schema {
     query: RootQuery
