@@ -17,7 +17,7 @@ import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger
 import ChampionIndex from '../../assets/data/championIndex.json';
 
 const Recruit = props => {
-    console.log('props', props);
+    // console.log('props', props);
     const each = props.each;
     const getEmblem = tier => {
         switch(tier) {
@@ -59,12 +59,25 @@ const Recruit = props => {
         return <img alt="champion" src={`http://ddragon.leagueoflegends.com/cdn/9.21.1/img/champion/${ChampionIndex[champion]}.png`} />
     };
     const getCreatedTime = time => {
-        // const calculatedTime = Date.now() - Number(time);
-        const calculatedTime = Number(time);
-        console.log(calculatedTime);
-        return String(new Date(calculatedTime).toLocaleDateString())
+        const now = new Date();
+        const old = new Date(Number(time));
+        const gap = (now.getTime() - old.getTime()) / 1000;
+        console.log(gap);
+        if (gap < 60) return String(gap) + '초 전'
+        else if (gap < 3600) return String(Math.floor(gap/60)) + '분 전'
+        else if (gap < 86400) return String(Math.floor(gap/3600)) + '시간 전'
+        else return String(Math.floor(gap/86400)) + '일 전'
+        // const calculatedTime = Number(time);
+        // const calculatedTime = Date.now();
+        // console.log(calculatedTime);
+        // return String(new Date(calculatedTime).toLocaleDateString())
+        // return min_gap
     };
-    console.log('each', each);
+    const modalShow = () => {
+        document.querySelector('.detail__wrap').classList.remove("modal--hide");
+        document.querySelector('.detail__wrap').classList.add("modal--show");
+    };
+    // console.log('each', each);
     return (
         <div className="recruit__each">
             <div className="column1">
@@ -105,14 +118,38 @@ const Recruit = props => {
                     {each.status ? <span className="waiting">대기중</span> : '게임중'}
                 </div>
                 <div className="time">
-                    {getCreatedTime(each.created_at)}
+                    {getCreatedTime(each.updated_at)}
                 </div>
-                <button className="submit">
-                    더 보기
+                <button onClick={modalShow} className="submit">
+                    신청하기
                 </button>
             </div>
         </div>
     );
 };
 
+const getEmblem = tier => {
+    switch(tier) {
+        case 'IRON':
+            return <img alt="Emblem_Iron" src={Emblem_Iron} />;
+        case 'BRONZE':
+            return <img alt="Emblem_Bronze" src={Emblem_Bronze} />;
+        case 'SILVER':
+            return <img alt="Emblem_Silver" src={Emblem_Silver} />;
+        case 'GOLD':
+            return <img alt="Emblem_Gold" src={Emblem_Gold} />;
+        case 'PLATINUM':
+            return <img alt="Emblem_Platinum" src={Emblem_Platinum} />;
+        case 'DIAMOND':
+            return <img alt="Emblem_Diamond" src={Emblem_Diamond} />;
+        case 'MASTER':
+            return <img alt="Emblem_Master" src={Emblem_Master} />;
+        case 'GRANDMASTER':
+            return <img alt="Emblem_Grandmaster" src={Emblem_Grandmaster} />;
+        case 'CHALLENGER':
+            return <img alt="Emblem_Challenger" src={Emblem_Challenger} />;
+    }
+};
+
 export default Recruit;
+export { getEmblem };

@@ -29,13 +29,13 @@ const ProfileList = () => {
         (
             user.nicknames.map((name, index) => (
                 <div className="profile__card cardview--border" key={index}>
-                    {name}
+                    <span>{name}</span>
                 </div>
             ))
         ) : (
-            <div>
+            <span className="no__profile">
                 등록된 계정이 없습니다.
-            </div>
+            </span>
         )
     return (
         <div className="profile__list cardview">

@@ -13,6 +13,7 @@ const RecruitList = () => {
                     position,
                     status,
                     created_at,
+                    updated_at,
                     recentgames {
                         win,
                         kills,
@@ -47,7 +48,7 @@ const RecruitList = () => {
         // console.log(each)
         return (
             <Recruit
-                // key={each._id}
+                key={each._id}
                 each={each}
             />
         )

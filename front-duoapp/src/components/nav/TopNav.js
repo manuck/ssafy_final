@@ -5,27 +5,35 @@ import { Link } from 'react-router-dom';
 import './TopNav.scss';
 
 const TopNav = () => {
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState({});
     useEffect(() => {
         // profile에서 유저 정보 가져오기
-        getUsername();
+        getUser();
     },[]);
-    const getUsername = async() => {
-        const token = document.cookie.split("MnMsToken=");
-        const res = await fetch('http://localhost:4000/authtest', {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'applicatoin/json',
-                'authorization': token[1]
-            },
-        });
-        // console.log('user:', res.json().then(data => console.log(data.username)));
-        const username = '';
-        await res.json().then(data => {
-            setUser(data);
-            console.log(data);
-        });
+    const getUser = async() => {
+        try {
+            // cookie가 여러개인 경우 오류가 날수도 있을 것 같다.
+            const token = document.cookie.split("MnMsToken=");
+            // console.log('token', token);
+            const res = await fetch('http://localhost:4000/authtest', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'applicatoin/json',
+                    'authorization': token[1] 
+                },
+            });
+            // console.log('user:', res.json().then(data => console.log(data.username)));
+            const username = '';
+            await res.json().then(data => {
+                // console.log('userdata', data);
+                // console.log('user1', user);
+                setUser(data);
+                // console.log('user2', user);
+            });
+        } catch(err) {
+            console.log('TopNav error Msg:', err);
+        }
     }
     // const user = {
     //     username: 'kbs3539@gmail.com',
@@ -56,11 +64,11 @@ const TopNav = () => {
             </div>
             <div className="topnav__user">
                 {user.representationNickname ? (
-                    <Link to="/profile">{user.representationNickname} &gt;</Link>
-                ) : user ? (
+                    <Link to="/profile">{user.representationNickname}</Link>
+                ) : user.username ? (
                     <Link to="/profile">소환사 등록하기</Link>
                 ) : (
-                    <Link to="login">시작하기</Link>
+                    <Link to="login">로그인</Link>
                 )}
             </div>
         </div>

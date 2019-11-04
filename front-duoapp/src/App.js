@@ -15,7 +15,7 @@ const App = () => {
             <Route path="/" component={Main} exact={true} />
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
-            <Route path="/detail" component={RecruitDetail} />
+            <Route path="/detail/:id" component={RecruitDetail} />
             <Footer/>
         </div>
     );
