@@ -59,6 +59,15 @@ type Applicant {
     created_at : String
     updated_at : String
 }
+type RecruitmentInfo {
+    _id: ID!
+    position: String
+    status: Boolean
+    writer : User
+    applicantsCount: Int
+    created_at : String
+    updated_at : String
+}
 
 
 
@@ -118,6 +127,7 @@ type RootQuery {
     recruitmentAndApplicants(recruitId: ID): RecruitmentAndApplicant!
     getUser(userId : ID): User!
     getUserByUsername(searchUserInput: SearchUserInput): User!
+    getRecruitmentByUserID(userId : ID): RecruitmentInfo!
 }
 type RootMutation {
     createUser(createUserInput: CreateUserInput): User

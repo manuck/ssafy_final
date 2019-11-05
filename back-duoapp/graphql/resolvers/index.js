@@ -116,6 +116,28 @@ module.exports = {
          }
     },
 
+    getRecruitmentByUserID: async args => {
+        try {
+            const recruitment = await Recruitment.findOne({userId : args.userId});
+            if(!recruitment) {
+                throw new Error('recruitment not exists');
+            }
+            const writer = await User.findById({_id: args.userId});
+            return {
+                ...recruitment._doc,
+                _id: recruitment._id,
+                position: recruitment.position,
+                status: recruitment.status,
+                writer: writer,
+                applicantsCount: recruitment.applicantsCount,
+                created_at: recruitment.created_at,
+                updated_at: recruitment.updated_at
+            }
+        } catch (err) {
+            throw err;
+         }
+    },
+
     createUser: async args => {
         try{
             const existUser = await User.findOne({ username: args.createUserInput.username });
