@@ -3,28 +3,10 @@ import { Link } from 'react-router-dom';
 // import TopNavLogo from './TopNavLogo';
 // import TopNavUser from './TopNavUser';
 import './TopNav.scss';
-import { createStore } from 'redux' 
 
-const initialUser = Object
 
-let afterData = Object
-
-const changeUser = {
-    type: 'Change_User',
-}
-
-const reducer = (state = initialUser, action) => {
-    switch (action.type) {
-        case 'Change_User':
-            state = afterData
-    }
-    return state
-}
-
-const store = createStore(reducer)
 
 const TopNav = () => {
-    console.log(store.getState())
     const [user, setUser] = useState({});
     useEffect(() => {
         // profile에서 유저 정보 가져오기
@@ -35,7 +17,9 @@ const TopNav = () => {
             // cookie가 여러개인 경우 오류가 날수도 있을 것 같다.
             const token = document.cookie.split("MnMsToken=");
             console.log('token', token);
-            const res = await fetch('http://localhost:4000/authtest', {
+            // const res = await fetch('http://localhost:4000/authtest', {
+            //console.log('token', token);
+            const res = await fetch('http://socialgame.ssafy.io/authtest', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -46,11 +30,7 @@ const TopNav = () => {
             // console.log('user:', res.json().then(data => console.log(data.username)));
             const username = '';
             await res.json().then(data => {
-                afterData = data
-                store.dispatch(changeUser)
-                console.log(store.getState())
                 // console.log('userdata', data);
-                { this.props.onCreate(data) } 
                 // console.log('user1', user);
                 setUser(data);
                 // console.log('user2', user);

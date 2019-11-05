@@ -9,7 +9,7 @@ const ProfileList = () => {
     },[]);
     const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
-        const res = await fetch('http://localhost:4000/authtest', {
+        const res = await fetch('http://socialgame.ssafy.io/authtest', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -29,13 +29,13 @@ const ProfileList = () => {
         (
             user.nicknames.map((name, index) => (
                 <div className="profile__card cardview--border" key={index}>
-                    {name}
+                    <span>{name}</span>
                 </div>
             ))
         ) : (
-            <div>
+            <span className="no__profile">
                 등록된 계정이 없습니다.
-            </div>
+            </span>
         )
     return (
         <div className="profile__list cardview">

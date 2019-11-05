@@ -1,72 +1,76 @@
 const { buildSchema } = require('graphql');
 module.exports = buildSchema(`
 type User {
-   _id: ID!
-   username: String!
-   nicknames: [String]
-   representationNickname: String
-   tiers: Tier
-   majorPosition: String
-   minorPosition: String
-   apiUpdatedAt: String
-   recentgames : [Game]
-   created_at : String
-   updated_at : String
+    _id: ID!
+    username: String!
+    nicknames: [String]
+    representationNickname: String
+    tiers: Tier
+    majorPosition: String
+    minorPosition: String
+    apiUpdatedAt: String
+    recentgames : [Game]
+    created_at : String
+    updated_at : String
 }
 type Tier {
-   tier: String
-   rank: String
-   leaguePoint: Int
+    tier: String
+    rank: String
+    leaguePoint: Int
 }
 type Game {
-   win: Boolean
-   kills: Int
-   deaths: Int
-   assists: Int
-   champion: Int
+    win: Boolean
+    kills: Int
+    deaths: Int
+    assists: Int
+    champion: Int
 }
 type Recruitment {
-   _id: ID!
-   userId: ID
-   position: String
-   status: Boolean!
-   created_at : String
-   updated_at : String
+    _id: ID!
+    userId: ID
+    position: String
+    status: Boolean!
+    created_at : String
+    updated_at : String
 }
 type RecruitmentAndWriter {
-   _id: ID!
-   position: String
-   status: Boolean
-   writer: User
-   created_at : String
-   updated_at : String
+    _id: ID!
+    position: String
+    status: Boolean
+    writer: User
+    created_at : String
+    updated_at : String
 }
 type RecruitmentAndApplicant {
-   _id: ID!
-   position: String
-   status: Boolean
-   writer : User
-   applicants: [User]
-   created_at : String
-   updated_at : String
+    _id: ID!
+    position: String
+    status: Boolean
+    writer : User
+    applicants: [User]
+    created_at : String
+    updated_at : String
 }
 type Applicant {
-   _id: ID!
-   userId: ID
-   recruitmentId : ID
-   position: String
-   created_at : String
-   updated_at : String
+    _id: ID!
+    userId: ID
+    recruitmentId : ID
+    position: String
+    created_at : String
+    updated_at : String
 }
 type RecruitmentInfo {
-   _id: ID!
-   position: String
-   status: Boolean
-   writer : User
-   applicantsCount: Int
-   created_at : String
-   updated_at : String
+    _id: ID!
+    position: String
+    status: Boolean
+    writer : User
+    applicantsCount: Int
+    created_at : String
+    updated_at : String
 }
+
+
+
+
 input CreateUserInput {
    username: String!
 }
@@ -108,28 +112,36 @@ input UpdateRecruitmentInput {
    id: String!
    position: String!
 }
+input UpdateRecruitmentInput {
+    id: String!
+    position: String!
+}
 input SearchUserInput {
    username: String!
 }
+
+
+
+
 type RootQuery {
-   users: [User!]!
-   recruitments: [Recruitment!]!
-   recruitmentAndWriters: [RecruitmentAndWriter]!
-   recruitmentAndApplicants(recruitId: ID): RecruitmentAndApplicant!
-   getUser(userId : ID): User!
-   getUserByUsername(searchUserInput: SearchUserInput): User!
-   getRecruitmentByUserID(userId : ID): RecruitmentInfo!
+    users: [User!]!
+    recruitments: [Recruitment!]!
+    recruitmentAndWriters: [RecruitmentAndWriter]!
+    recruitmentAndApplicants(recruitId: ID): RecruitmentAndApplicant!
+    getUser(userId : ID): User!
+    getUserByUsername(searchUserInput: SearchUserInput): User!
+    getRecruitmentByUserID(userId : ID): RecruitmentInfo!
 }
 type RootMutation {
-   createUser(createUserInput: CreateUserInput): User
-   createRecruitment(createRecruitmentInput: CreateRecruitmentInput): Recruitment
-   createApplicant(createApplicantInput: CreateApplicantInput): Applicant
-   updateUserAddNickName(updateUserAddNickNameInput: UpdateUserAddNickNameInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]):User
-   updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]): User
-   updateRecruitment(updateRecruitmentInput: UpdateRecruitmentInput): Recruitment
-   deleteUser(UserId: String): Boolean
-   deleteRecruitment(RecruitmentId: String): Boolean
-   deleteApplicant(applicantId: String): Boolean
+    createUser(createUserInput: CreateUserInput): User
+    createRecruitment(createRecruitmentInput: CreateRecruitmentInput): Recruitment
+    createApplicant(createApplicantInput: CreateApplicantInput): Applicant
+    updateUserAddNickName(updateUserAddNickNameInput: UpdateUserAddNickNameInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]):User
+    updateUser(updateUserInput: UpdateUserInput, updateTierInput: UpdateTierInput, updateGameInput: [UpdateGameInput]): User
+    updateRecruitment(updateRecruitmentInput: UpdateRecruitmentInput): Recruitment
+    deleteUser(UserId: String): Boolean
+    deleteRecruitment(RecruitmentId: String): Boolean
+    deleteApplicant(applicantId: String): Boolean
 }
 schema {
    query: RootQuery

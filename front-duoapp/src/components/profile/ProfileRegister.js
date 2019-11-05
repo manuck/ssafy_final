@@ -11,7 +11,7 @@ const ProfileRegister = () => {
     },[]);
     const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
-        const res = await fetch('http://localhost:4000/authtest', {
+        const res = await fetch('http://socialgame.ssafy.io/authtest', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -30,9 +30,9 @@ const ProfileRegister = () => {
 
     const findName = async() => {
         const nickname = document.querySelector('.accounts .form input').value;
-        console.log(nickname);
+        console.log('input value', nickname);
         try {
-            const res = await fetch('http://localhost:4000/test', {
+            const res = await fetch('http://socialgame.ssafy.io/test', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,7 +44,6 @@ const ProfileRegister = () => {
         } catch (err) {
             console.log(err);
         }
-        console.log('after fetch in frontend')
     }
     return (
         <div className="accounts cardview">

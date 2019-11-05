@@ -97,7 +97,7 @@ exports.hasNickname = async function (nick) {
     summonerUrl = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${nick}?api_key=${mykey}`
     try {   
         const res = await axios.get(encodeURI(summonerUrl))
-        // console.log(res)
+        //console.log(res)
         return true
     }
     catch(e) {
