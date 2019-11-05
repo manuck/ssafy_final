@@ -8,7 +8,7 @@ const Login = () => {
                 <div className="title">
                     로그인
                 </div>
-                <a href="http://localhost:4000/api/auth/google" className="login__button">
+                <a href="http://13.125.226.179:80/api/auth/google" className="login__button">
                     구글로 로그인하기
                 </a>
             </div>

@@ -5,59 +5,59 @@ type User {
     _id: ID!
     username: String!
     nicknames: [String]
-    representationNickname: String!
-    tiers: Tier!
-    majorPosition: String!
-    minorPosition: String!
-    apiUpdatedAt: String!
+    representationNickname: String
+    tiers: Tier
+    majorPosition: String
+    minorPosition: String
+    apiUpdatedAt: String
     recentgames : [Game]
-    created_at : String!
-    updated_at : String!
+    created_at : String
+    updated_at : String
 }
 type Tier {
-    tier: String!
-    rank: String!
-    leaguePoint: Int!
+    tier: String
+    rank: String
+    leaguePoint: Int
 }
 type Game {
-    win: Boolean!
-    kills: Int!
-    deaths: Int!
-    assists: Int!
-    champion: Int!
+    win: Boolean
+    kills: Int
+    deaths: Int
+    assists: Int
+    champion: Int
 }
 type Recruitment {
     _id: ID!
-    userId: ID!
-    position: String!
+    userId: ID
+    position: String
     status: Boolean!
-    created_at : String!
-    updated_at : String!
+    created_at : String
+    updated_at : String
 }
 type RecruitmentAndWriter {
     _id: ID!
-    position: String!
-    status: Boolean!
-    writer: User!
-    created_at : String!
-    updated_at : String!
+    position: String
+    status: Boolean
+    writer: User
+    created_at : String
+    updated_at : String
 }
 type RecruitmentAndApplicant {
     _id: ID!
-    position: String!
-    status: Boolean!
-    writer : User!
+    position: String
+    status: Boolean
+    writer : User
     applicants: [User]
-    created_at : String!
-    updated_at : String!
+    created_at : String
+    updated_at : String
 }
 type Applicant {
     _id: ID!
-    userId: ID!
-    recruitmentId : ID!
-    position: String!
-    created_at : String!
-    updated_at : String!
+    userId: ID
+    recruitmentId : ID
+    position: String
+    created_at : String
+    updated_at : String
 }
 
 
