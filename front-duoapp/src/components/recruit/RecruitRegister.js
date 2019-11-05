@@ -14,7 +14,7 @@ const RecruitRegister = () => {
         try {
             const token = document.cookie.split("MnMsToken=");
             // console.log('user', user);
-            const res = await fetch('http://localhost:4000/authtest', {
+            const res = await fetch('http://socialgame.ssafy.io/authtest', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -41,7 +41,7 @@ const RecruitRegister = () => {
             `
         }
         // console.log(requestBody);
-        const res = await fetch('http://localhost:4000/graphql', {
+        const res = await fetch('http://socialgame.ssafy.io/graphql', {
             method: 'POST',
             body: JSON.stringify(requestBody),
             headers: {
