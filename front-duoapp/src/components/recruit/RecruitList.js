@@ -9,25 +9,28 @@ const RecruitList = () => {
     const [allList, setAllList] = useState([]);
     const requestBody = {
         query: `
-            query {
-                recruitmentsAndUsers {
+            query{
+                recruitmentAndWriters{
                     _id,
-                    userId,
                     position,
                     status,
                     created_at,
                     updated_at,
-                    recentgames {
-                        win,
-                        kills,
-                        deaths,
-                        assists,
-                        champion
-                    },
-                    tiers {
-                        tier,
-                        rank,
-                        leaguePoint,
+                    writer {
+                        username,
+                        representationNickname,
+                        tiers {
+                            tier,
+                            rank,
+                            leaguePoint
+                        },
+                        recentgames {
+                            win,
+                            kills,
+                            deaths,
+                            assists,
+                            champion
+                        }
                     }
                 }
             }
@@ -42,9 +45,10 @@ const RecruitList = () => {
             }
         });
         await res.json().then(data => {
-            setAllList(data.data.recruitmentsAndUsers);
-            setRecruitList(data.data.recruitmentsAndUsers);
-            // console.log(data.data.recruitmentsAndUsers);
+            setAllList(data.data.recruitmentAndWriters);
+            setRecruitList(data.data.recruitmentAndWriters);
+            // console.log(data.recruitmentsAndUsers);
+
         });
     };
     // if (each["position"] === "TOP"){
@@ -56,9 +60,7 @@ const RecruitList = () => {
     //     )
     // }
     const positionList = num => {
-        console.log('버튼 이벤트')
         if (num===1) {
-            console.log(recruitList)
             setRecruitList(allList.filter(word => word["position"] =="TOP"))
         }
         else if (num===2) {
@@ -76,13 +78,7 @@ const RecruitList = () => {
         else if (num===6) {
             setRecruitList(allList)
         }
-        else if (num===7) {
-            console.log('나의 티어에 맞게')
-            // 유저정보좀 가져와줘 제발~~~~~~~~~
-
-        }
     }
-
     const recruitPostList = recruitList.map((each, index) => {
         // console.log(resEach)
         return (
@@ -104,7 +100,6 @@ const RecruitList = () => {
                 <button onClick={() => {positionList(4)}}>AD</button>
                 <button onClick={() => {positionList(5)}}>SUPPORT</button>
                 <button onClick={() => {positionList(6)}}>전체보기</button>
-                <button onClick={() => {positionList(7)}}>나의 티어에 맞게</button>
             </div>
             {recruitPostList}
             {/* <Recruit/> */}

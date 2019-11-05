@@ -2,67 +2,29 @@ const User = require('../../models/user');
 const Recruitment = require('../../models/recruitment');
 const Applicant = require('../../models/applicant');
 
-// const events = async eventIds => {
-//     try {
-//         const events = await Event.find({ _id: { $in: eventIds } });
-//         events.map(event => {
-//         return {
-//             ...event._doc,
-//             _id: event.id,
-//             date: new Date(event._doc.date).toISOString(),
-//             creator: user.bind(this, event.creator)
-//         };
-//         });
-//         return events;
-//     } catch (err) {
-//         throw err;
-//     }
-// };
-
-// const user = async userId => {
-//     try {
-//         const user = await User.findById(userId);
-//         return {
-//         ...user._doc,
-//         _id: user.id,
-//         createdEvents: events.bind(this, user._doc.createdEvents)
-//         };
-//     } catch (err) {
-//         throw err;
-//     }
-// };
-
-const recruitment = async recruitmentId => {
-    try {
-        const recruitment = await Recruitment.findById(recruitmentId);
-        return {
-            ...recruitment._doc,
-            _id:  recruitment.id,
-            position: recruitment.position,
-            status: recruitment.status
-        };
-    } catch (err) {
-        throw err;
-    }
-}
-
-
 module.exports = {
-    // events: async () => {
-    //     try {
-    //         const events = await Event.find();
-    //         return events.map(event => {
-    //             return {
-    //             ...event._doc,
-    //             _id: event.id,
-    //             date: new Date(event._doc.date).toISOString(),
-    //             creator: user.bind(this, event._doc.creator)
-    //             };
-    //         });
-    //     } catch (err) {
-    //        throw err;
-    //     }
-    // },
+    users: async () => {
+        try {
+            const users = await User.find();
+            return users.map(user => {
+                return {
+                    _id: user._id,
+                    username: user.username,
+                    nicknames: user.nicknames,
+                    representationNickname: user.representationNickname,
+                    tiers: user.tiers,
+                    majorPosition: user.majorPosition,
+                    minorPosition: user.minorPosition,
+                    apiUpdatedAt: user.apiUpdatedAt,
+                    recentgames: user.recentgames,
+                    created_at: user.created_at,
+                    updated_at: user.updated_at
+                }
+            })
+        } catch (err) {
+            throw err;
+         }
+    },
 
     recruitments: async () => {
         try {
@@ -83,25 +45,17 @@ module.exports = {
          }
     },
 
-    recruitmentsAndUsers: async () => {
+    recruitmentAndWriters: async () => {
         try {
-            const recruitments = await Recruitment.find();
+            const recruitments = await Recruitment.find().sort({updated_at: -1});
             return recruitments.map(async recruitment => {
                 const user = await User.findById({_id: recruitment.userId});
                 return {
                     ...recruitment._doc,
                     _id: recruitment.id,
-                    userId: recruitment.userId,
                     position: recruitment.position,
                     status: recruitment.status,
-                    username: user.username,
-                    nicknames: user.nicknames,
-                    representationNickname: user.representationNickname,
-                    tiers: user.tiers,
-                    majorPosition: user.majorPosition,
-                    minorPosition: user.minorPosition,
-                    apiUpdatedAt: user.apiUpdatedAt,
-                    recentgames: user.recentgames,
+                    writer: user,
                     created_at : recruitment.created_at,
                     updated_at : recruitment.updated_at
                 }
@@ -110,6 +64,36 @@ module.exports = {
             throw err;
          }
     },
+
+    recruitmentAndApplicants: async args => {
+        try {
+            const recruitment = await Recruitment.findById({_id: args.recruitId});
+            if(!recruitment) {
+                throw new Error('Recruitment not exists');
+            }
+            const user = await User.findById({_id: recruitment.userId});
+            if(!user) {
+                throw new Error('User not exists');
+            }
+            const applicants = await Applicant.find({recruitmentId: args.recruitId});
+            const applicantUsers = [];
+            const result = await applicants.forEach(applicant => {
+                applicantUsers.push(User.findById({_id:applicant.userId}));
+            });
+            return {
+                _id: recruitment._id,
+                position: recruitment.position,
+                status: recruitment.status,
+                writer: user,
+                applicants: applicantUsers,
+                created_at: recruitment.created_at,
+                updated_at: recruitment.updated_at
+            }
+        } catch (err) {
+            throw err;
+         }
+    },
+
 
     getUser: async args => {
         try {
@@ -132,36 +116,27 @@ module.exports = {
          }
     },
 
-    // createEvent: async args => {
-    //     const event = new Event({
-    //     title: args.eventInput.title,
-    //     description: args.eventInput.description,
-    //     price: +args.eventInput.price,
-    //     date: new Date(args.eventInput.date),
-    //     creator: '5db63fe7e7b9d0134436cc22'
-    //     });
-    //     let createdEvent;
-    //     try {
-    //         const result = await event.save();
-    //         createdEvent = {
-    //             ...result._doc,
-    //             _id: result._doc._id.toString(),
-    //             date: new Date(event._doc.date).toISOString(),
-    //             creator: user.bind(this, result._doc.creator)
-    //         };
-    //         const creator = await User.findById('5db63fe7e7b9d0134436cc22');
-
-    //         if (!creator) {
-    //             throw new Error('User not found.');
-    //         }
-    //         //creator.createdEvents.push(event);
-    //         await creator.save();
-    //         return createdEvent;
-    //     } catch (err) {
-    //         console.log(err);
-    //         throw err;
-    //     }
-    // },
+    getRecruitmentByUserID: async args => {
+        try {
+            const recruitment = await Recruitment.findOne({userId : args.userId});
+            if(!recruitment) {
+                throw new Error('recruitment not exists');
+            }
+            const writer = await User.findById({_id: args.userId});
+            return {
+                ...recruitment._doc,
+                _id: recruitment._id,
+                position: recruitment.position,
+                status: recruitment.status,
+                writer: writer,
+                applicantsCount: recruitment.applicantsCount,
+                created_at: recruitment.created_at,
+                updated_at: recruitment.updated_at
+            }
+        } catch (err) {
+            throw err;
+         }
+    },
 
     createUser: async args => {
         try{
@@ -258,7 +233,6 @@ module.exports = {
             if(!user) {
                 throw new Error('User not exists');
             }
-            console.log(user.username);
             const updateResult = await user.update(
                 {
                     $set: { 
@@ -272,7 +246,9 @@ module.exports = {
                     }
                 }
             );
-            return {...updateResult._doc, username: args.updateUserInput.username,
+            return {
+                ...updateResult._doc,
+                username: args.updateUserInput.username,
                 representationNickname: args.updateUserInput.representationNickname,
                 majorPosition: args.updateUserInput.majorPosition,
                 minorPosition:  args.updateUserInput.minorPosition,
@@ -280,9 +256,63 @@ module.exports = {
                 tiers: args.updateTierInput,
                 recentgames: args.updateGameInput
             };
+        } catch (err) {
+            throw err;
+        }
+    },
 
+    updateRecruitment: async args => {
+        try {
+            const recruitment = await Recruitment.findOne({_id: args.updateRecruitmentInput.id});
+            if(!recruitment) {
+                throw new Error('Recuritment not exists');
+            }
+            const recruitmentResult = await recruitment.update(
+                {
+                    $set :{
+                        position: args.updateRecruitmentInput.position,
+                        status: true
+                    }        
+                }
+            );
+            return {    
+                ...recruitmentResult._doc,            
+                userId: recruitment.userId,          
+                position: recruitment.position,
+                status: recruitment.status,
+                created_at : recruitment.created_at,
+                updated_at : recruitment.updated_at
+            };
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    deleteUser: async args => {
+        try {          
+            const result = await User.findByIdAndDelete({_id: args.deleteUserInput});
+            return true;
+        } catch (err) {
+            throw err;
+        }
+    },
+    deleteRecruitment: async args => {
+        try {          
+            const resultA = await Applicant.deleteMany({ recruitmentId: args.deleteRecruitmentInput });
+            const resultR = await Recruitment.findByIdAndDelete({ _id: args.deleteRecruitmentInput });
+            return true;
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    deleteApplicant: async args => {
+        try {
+            const result = await Applicant.findByIdAndDelete({_id: args.deleteApplicantInput});
+            return true;
         } catch (err) {
             throw err;
         }
     }
+
 };

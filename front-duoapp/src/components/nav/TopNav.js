@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 // import TopNavLogo from './TopNavLogo';
 // import TopNavUser from './TopNavUser';
 import './TopNav.scss';
-import { createStore } from 'redux'
-import {mymy} from '../../store' 
+import { createStore } from 'redux' 
+
 const initialUser = Object
 
 let afterData = Object
@@ -49,7 +49,6 @@ const TopNav = () => {
                 afterData = data
                 store.dispatch(changeUser)
                 console.log(store.getState())
-                mymy = data
                 // console.log('userdata', data);
                 { this.props.onCreate(data) } 
                 // console.log('user1', user);
