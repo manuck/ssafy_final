@@ -112,10 +112,6 @@ input UpdateRecruitmentInput {
    id: String!
    position: String!
 }
-input UpdateRecruitmentInput {
-    id: String!
-    position: String!
-}
 input SearchUserInput {
    username: String!
 }

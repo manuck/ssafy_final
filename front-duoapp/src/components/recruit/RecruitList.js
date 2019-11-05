@@ -37,7 +37,7 @@ const RecruitList = () => {
         `
     };
     const requestRecruit = async() => {
-        const res = await fetch('http://socialgame.ssafy.io/graphql', {
+        const res = await fetch('http://localhost:4000/graphql', {
             method: 'POST',
             body: JSON.stringify(requestBody),
             headers: {

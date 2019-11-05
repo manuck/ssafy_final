@@ -92,7 +92,7 @@ const Main = () => {
     if (recruit.status === true) {
         if (recruit.applicantsCount > 0) {
             Push.create("신청이 왔습니다!",{
-                body: "This is example of Push.js Tutorial",
+                body: "본인의 글에서 신청자를 확인해 주세요",
                 timeout: 2000,
                 onClick: function () {
                     window.focus();

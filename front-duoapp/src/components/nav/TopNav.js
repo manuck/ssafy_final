@@ -19,7 +19,7 @@ const TopNav = () => {
             console.log('token', token);
             // const res = await fetch('http://localhost:4000/authtest', {
             //console.log('token', token);
-            const res = await fetch('http://socialgame.ssafy.io/authtest', {
+            const res = await fetch('http://localhost:4000/authtest', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
