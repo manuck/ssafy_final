@@ -34,7 +34,7 @@ const RecruitList = () => {
         `
     };
     const requestRecruit = async() => {
-        const res = await fetch('http://13.125.226.179:80/graphql', {
+        const res = await fetch('http://localhost:4000/graphql', {
             method: 'POST',
             body: JSON.stringify(requestBody),
             headers: {

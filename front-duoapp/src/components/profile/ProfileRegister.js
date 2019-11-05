@@ -11,7 +11,7 @@ const ProfileRegister = () => {
     },[]);
     const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
-        const res = await fetch('http://13.125.226.179:80/authtest', {
+        const res = await fetch('http://localhost:4000/authtest', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -32,7 +32,7 @@ const ProfileRegister = () => {
         const nickname = document.querySelector('.accounts .form input').value;
         console.log('input value', nickname);
         try {
-            const res = await fetch('http://13.125.226.179:80/test', {
+            const res = await fetch('http://localhost:4000/test', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

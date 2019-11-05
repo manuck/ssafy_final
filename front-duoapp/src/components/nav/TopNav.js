@@ -15,7 +15,7 @@ const TopNav = () => {
             // cookie가 여러개인 경우 오류가 날수도 있을 것 같다.
             const token = document.cookie.split("MnMsToken=");
             // console.log('token', token);
-            const res = await fetch('http://13.125.226.179:80/authtest', {
+            const res = await fetch('http://localhost:4000/authtest', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {

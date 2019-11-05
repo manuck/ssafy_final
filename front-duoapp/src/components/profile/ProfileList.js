@@ -9,7 +9,7 @@ const ProfileList = () => {
     },[]);
     const getUsername = async() => {
         const token = document.cookie.split("MnMsToken=");
-        const res = await fetch('http://13.125.226.179:80/authtest', {
+        const res = await fetch('http://localhost:4000/authtest', {
             method: 'GET',
             mode: 'cors',
             headers: {
