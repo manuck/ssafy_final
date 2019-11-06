@@ -59,7 +59,7 @@ const RecruitDetail = props => {
         }
     };
     return (
-        <div className="detail__wrap modal--show">
+        <div className="detail__wrap modal--hide">
             <div onClick={modalHide} className="modal__bg" />
             <div className="modal__box">
                 <div className="row1">
@@ -68,13 +68,13 @@ const RecruitDetail = props => {
                     </div>
                     <div className="row1__column2">
                         <div className="nickname">
-                            <span>{data !== Object ? 'true' : 'username'}</span>
+                            <span>{props.data.isShow ? data.writer.representationNickname : 'username'}</span>
                         </div>
                         <div className="tier">
-                            {/* <span>{data.writer.tiers.tier || 'tier'} {data.writer.tiers.rank || 'rank'}</span> */}
+                            <span>{props.data.isShow ? data.writer.tiers.tier : 'tier'} {props.data.isShow? data.writer.tiers.rank : 'rank'}</span>
                         </div>
                         <div className="point">
-                            {/* <span>{data.writer.tiers.leaguePoint || 'leaguePoint'}</span> */}
+                            <span>{props.data.isShow ? data.writer.tiers.leaguePoint : 'leaguePoint'}</span>
                         </div>
                     </div>
                 </div>

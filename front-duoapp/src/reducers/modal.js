@@ -1,5 +1,6 @@
 export const initialState = {
     clickedRecruit: {},
+    isShow: false,
 };
 
 export const SHOW_DETAIL = 'SHOW_DETAIL';
@@ -19,6 +20,7 @@ const reducer = (state=initialState, action) => {
             return {
                 ...state,
                 clickedRecruit: action.data,
+                isShow: true,
             }
         }
         default: {
