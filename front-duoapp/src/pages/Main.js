@@ -84,8 +84,9 @@ const Main = () => {
         });
         await res.json().then(data => {
             // console.log(data)
-
-            setRecruit(data.data.getRecruitmentByUserID);
+            if (!data.errors) {
+                setRecruit(data.data.getRecruitmentByUserID);
+            }
         });
     };
     console.log(recruit)
