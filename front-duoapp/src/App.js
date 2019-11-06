@@ -8,8 +8,11 @@ import TopNav from './components/nav/TopNav';
 import Footer from './components/Footer';
 import './App.scss';
 
+<<<<<<< HEAD
 import { connect } from 'react-redux';
 import { login } from './modules/user';
+=======
+>>>>>>> 22aa1702edac73ae20de6263be3693e287eb485b
 
 const App = () => {
     console.log('mounted App')

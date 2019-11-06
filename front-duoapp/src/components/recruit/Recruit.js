@@ -17,7 +17,6 @@ import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger
 import ChampionIndex from '../../assets/data/championIndex.json';
 
 const Recruit = props => {
-    // console.log('props', props);
     const each = props.each;
     const getEmblem = tier => {
         switch(tier) {

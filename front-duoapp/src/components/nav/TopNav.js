@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 // import TopNavUser from './TopNavUser';
 import './TopNav.scss';
 
+
+
 const TopNav = () => {
     const [user, setUser] = useState({});
     useEffect(() => {
@@ -14,7 +16,9 @@ const TopNav = () => {
         try {
             // cookie가 여러개인 경우 오류가 날수도 있을 것 같다.
             const token = document.cookie.split("MnMsToken=");
-            // console.log('token', token);
+            console.log('token', token);
+            // const res = await fetch('http://localhost:4000/authtest', {
+            //console.log('token', token);
             const res = await fetch('http://localhost:4000/authtest', {
                 method: 'GET',
                 mode: 'cors',
