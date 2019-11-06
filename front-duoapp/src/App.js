@@ -8,6 +8,7 @@ import TopNav from './components/nav/TopNav';
 import Footer from './components/Footer';
 import './App.scss';
 
+
 const App = () => {
     return (
         <div className="app__wrapper">

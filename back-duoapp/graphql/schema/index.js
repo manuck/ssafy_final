@@ -1,5 +1,4 @@
 const { buildSchema } = require('graphql');
-
 module.exports = buildSchema(`
 type User {
     _id: ID!
@@ -73,48 +72,48 @@ type RecruitmentInfo {
 
 
 input CreateUserInput {
-    username: String!
+   username: String!
 }
 input CreateRecruitmentInput {
-    username: String! 
-    position: String!
-    status: Boolean
+   username: String!
+   position: String!
+   status: Boolean
 }
 input CreateApplicantInput {
-    userId : String!
-    recruitmentId: String!
-    position: String!
+   userId : String!
+   recruitmentId: String!
+   position: String!
 }
 input UpdateUserInput {
-    username: String!
-    nicknames: [String]
-    representationNickname: String!
-    majorPosition: String
-    minorPosition: String
-    apiUpdatedAt: String
+   username: String!
+   nicknames: [String]
+   representationNickname: String!
+   majorPosition: String
+   minorPosition: String
+   apiUpdatedAt: String
 }
 input UpdateTierInput {
-    tier: String!
-    rank: String!
-    leaguePoint: Int!
+   tier: String!
+   rank: String!
+   leaguePoint: Int!
 }
 input UpdateGameInput {
-    win: Boolean!
-    kills: Int!
-    deaths: Int!
-    assists: Int!
-    champion: Int!
+   win: Boolean!
+   kills: Int!
+   deaths: Int!
+   assists: Int!
+   champion: Int!
 }
 input UpdateUserAddNickNameInput {
-    username: String!
-    nickname: String!
+   username: String!
+   nickname: String!
 }
 input UpdateRecruitmentInput {
-    id: String!
-    position: String!
+   id: String!
+   position: String!
 }
 input SearchUserInput {
-    username: String!
+   username: String!
 }
 
 
@@ -141,7 +140,7 @@ type RootMutation {
     deleteApplicant(applicantId: String): Boolean
 }
 schema {
-    query: RootQuery
-    mutation: RootMutation
+   query: RootQuery
+   mutation: RootMutation
 }
 `);
