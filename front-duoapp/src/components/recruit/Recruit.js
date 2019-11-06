@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Recruit.scss';
 import Emblem_Iron from '../../assets/icons/ranked-emblems/Emblem_Iron.png';
 import Emblem_Bronze from '../../assets/icons/ranked-emblems/Emblem_Bronze.png';
@@ -15,6 +15,10 @@ import MidIcon from '../../assets/icons/ranked-positions/Position_Challenger-Mid
 import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot.png';
 import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
 import ChampionIndex from '../../assets/data/championIndex.json';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { SHOW_DETAIL } from '../../reducers/modal';
+import { showDetailAction } from '../../reducers/modal';
 
 const Recruit = props => {
     const each = props.each;
@@ -66,11 +70,13 @@ const Recruit = props => {
         else if (gap < 86400) return String(Math.floor(gap/3600)) + '시간 전'
         else return String(Math.floor(gap/86400)) + '일 전'
     };
+    // console.log('each', each);
+    const dispatch = useDispatch();
     const modalShow = () => {
         document.querySelector('.detail__wrap').classList.remove("modal--hide");
         document.querySelector('.detail__wrap').classList.add("modal--show");
+        dispatch(showDetailAction(each));
     };
-    
     return (
         <div className="recruit__each">
             <div className="column1">

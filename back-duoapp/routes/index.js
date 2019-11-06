@@ -46,7 +46,9 @@ router.post('/test', async (req, res) => {
             if (data[0]['nicknames'] === undefined || data[0]['nicknames'].length == 0) {
                 inNickName = false
             }
-            inNickName = data[0]['nicknames'].includes(search)
+            else {
+                inNickName = data[0]['nicknames'].includes(search)
+            }
         })
    
         if (inNickName === false) {
