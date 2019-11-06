@@ -19,18 +19,16 @@ const ProfileRegister = () => {
                 'authorization': token[1]
             },
         });
-        // console.log('user:', res.json().then(data => console.log(data.username)));
-        // const username = '';
+
         userInfo = await res.json().then(data => {
             setUser(data);
             return [data['username'], data['_id']]
-            // console.log(data['username']);
+
         });
     }
 
     const findName = async() => {
         const nickname = document.querySelector('.accounts .form input').value;
-        console.log('input value', nickname);
         try {
             const res = await fetch('http://localhost:4000/test', {
                 method: 'POST',

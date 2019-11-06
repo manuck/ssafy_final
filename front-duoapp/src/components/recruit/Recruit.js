@@ -65,17 +65,12 @@ const Recruit = props => {
         else if (gap < 3600) return String(Math.floor(gap/60)) + '분 전'
         else if (gap < 86400) return String(Math.floor(gap/3600)) + '시간 전'
         else return String(Math.floor(gap/86400)) + '일 전'
-        // const calculatedTime = Number(time);
-        // const calculatedTime = Date.now();
-        // console.log(calculatedTime);
-        // return String(new Date(calculatedTime).toLocaleDateString())
-        // return min_gap
     };
     const modalShow = () => {
         document.querySelector('.detail__wrap').classList.remove("modal--hide");
         document.querySelector('.detail__wrap').classList.add("modal--show");
     };
-    // console.log('each', each);
+    
     return (
         <div className="recruit__each">
             <div className="column1">

@@ -51,29 +51,21 @@ const RecruitList = () => {
 
         });
     };
-    // if (each["position"] === "TOP"){
-    //     return (
-    //     <Recruit
-    //     key={each._id}
-    //     each={each}
-    //     />
-    //     )
-    // }
     const positionList = num => {
         if (num===1) {
-            setRecruitList(allList.filter(word => word["position"] =="TOP"))
+            setRecruitList(allList.filter(word => word["position"] ==="TOP"))
         }
         else if (num===2) {
-            setRecruitList(allList.filter(word => word["position"] =="JUNGLE"))
+            setRecruitList(allList.filter(word => word["position"] ==="JUNGLE"))
         }
         else if (num===3) {
-            setRecruitList(allList.filter(word => word["position"] =="MID"))
+            setRecruitList(allList.filter(word => word["position"] ==="MID"))
         }
         else if (num===4) {
-            setRecruitList(allList.filter(word => word["position"] =="AD"))
+            setRecruitList(allList.filter(word => word["position"] ==="AD"))
         }
         else if (num===5) {
-            setRecruitList(allList.filter(word => word["position"] =="SUPPORT"))
+            setRecruitList(allList.filter(word => word["position"] ==="SUPPORT"))
         }
         else if (num===6) {
             setRecruitList(allList)

@@ -21,10 +21,7 @@ const ProfileList = () => {
             setUser(data);
         });
     };
-    // const user = {
-    //     nicknames: ['싺싹김치', '싺싺낌치2', '삭삭김치3']
-    // }
-    // const profileList = user.nicknames.map((name, index) => <div>{name}</div>)
+
     const profileList = user.nicknames ? 
         (
             user.nicknames.map((name, index) => (

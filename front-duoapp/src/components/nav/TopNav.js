@@ -18,7 +18,6 @@ const TopNav = () => {
             const token = document.cookie.split("MnMsToken=");
             console.log('token', token);
             // const res = await fetch('http://localhost:4000/authtest', {
-            //console.log('token', token);
             const res = await fetch('http://localhost:4000/authtest', {
                 method: 'GET',
                 mode: 'cors',
@@ -27,38 +26,16 @@ const TopNav = () => {
                     'authorization': token[1] 
                 },
             });
-            // console.log('user:', res.json().then(data => console.log(data.username)));
+  
             const username = '';
             await res.json().then(data => {
-                // console.log('userdata', data);
-                // console.log('user1', user);
                 setUser(data);
-                // console.log('user2', user);
             });
         } catch(err) {
             console.log('TopNav error Msg:', err);
         }
     }
-    // const user = {
-    //     username: 'kbs3539@gmail.com',
-    //     nicknames: ['싹싹김치', '싹싹김치2', '갓김치'],
-    //     representationNickname: '싹싹김치',
-    //     tiers: {
-    //         tier: 'diamond',
-    //         rank: 'IV',
-    //         leaguePoint: 3000
-    //     },
-    //     recentGames: [
-    //         {win: true, kills: 10, deaths: 1, assists: 5, champNo: 22},
-    //         {win: false, kills: 10, deaths: 2, assists: 3, champNo: 10},
-    //         {win: true, kills: 2, deaths: 10, assists: 15, champNo: 1},
-    //         {win: true, kills: 6, deaths: 4, assists: 5, champNo: 40},
-    //         {win: true, kills: 9, deaths: 8, assists: 7, champNo: 32}
-    //     ],
-    //     majorPosition: 'bot',
-    //     minorPosition: 'top',
-    //     apiUpdatedAt: '2016-05-18T16:00:00Z',
-    // }
+
     return (
         <div className="topnav">
             <div className="topnav__logo">

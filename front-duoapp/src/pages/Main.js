@@ -10,19 +10,9 @@ const Main = () => {
     const [user, setUser] = useState({});
     useEffect(() => {
         // profile에서 유저 정보 가져오기
-        console.log('first effect')
         getUser()
-        // setTimeout(function() {
-        //   }, 1000);
-        // requestRecruit()
     },[])
     useEffect(() => {
-        console.log('second effect')
-        // profile에서 유저 정보 가져오기
-        // getUser()
-        // setTimeout(function() {
-        //   }, 1000);
-        console.log('user',user)
         if (user._id) {
             requestRecruit()
         }
@@ -31,7 +21,6 @@ const Main = () => {
         try {
             // cookie가 여러개인 경우 오류가 날수도 있을 것 같다.
             const token = document.cookie.split("MnMsToken=");
-            console.log('token', token);
             const res = await fetch('http://localhost:4000/authtest', {
                 method: 'GET',
                 mode: 'cors',
@@ -40,7 +29,6 @@ const Main = () => {
                     'authorization': token[1] 
                 },
             });
-            // console.log('user:', res.json().then(data => console.log(data.username)));
             const username = '';
             res.json().then(data => {
                 setUser(data, function() {
@@ -74,7 +62,7 @@ const Main = () => {
     };
 
     const requestRecruit = async() => {
-        console.log('user in requestrecuirt', user)
+        // console.log('user in requestrecuirt', user)
         const res = await fetch('http://localhost:4000/graphql', {
             method: 'POST',
             body: JSON.stringify(requestBody),
@@ -83,12 +71,12 @@ const Main = () => {
             }
         });
         await res.json().then(data => {
-            // console.log(data)
-
-            setRecruit(data.data.getRecruitmentByUserID);
+            console.log(data.errors)
+            if (!data.errors) {
+                setRecruit(data.data.getRecruitmentByUserID);
+            }
         });
     };
-    console.log(recruit)
     if (recruit.status === true) {
         if (recruit.applicantsCount > 0) {
             Push.create("신청이 왔습니다!",{
@@ -103,16 +91,10 @@ const Main = () => {
     }
 
     return (
-        // <div className="home">
-        //     <div className="content">
-        //         <RecruitRegister/>
-        //         <RecruitList/>
-        //     </div>
-        // </div>
         <div className="home">
             <RecruitRegister/>
-            <RecruitList/>
-            <RecruitDetail/>
+            <RecruitList user={user}/>
+            <RecruitDetail user={user}/>
         </div>
     );
 };
