@@ -1,9 +1,5 @@
 const axios = require('axios');
-<<<<<<< HEAD
-mykey = 'RGAPI-9b9ca62b-ee69-46e0-bd75-22eeba9f2932'
-=======
-mykey = 'RGAPI-c7b73e48-783f-47d9-86c6-18d9764e9e75'
->>>>>>> 22aa1702edac73ae20de6263be3693e287eb485b
+mykey = 'RGAPI-a57f7bd0-b157-42ab-977e-78504418ab35'
 
 exports.getLOLData = async function (nick) {
     try {

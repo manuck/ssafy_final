@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { user } from '../../modules/user';
 import './RecruitRegister.scss';
 import TopIcon from '../../assets/icons/ranked-positions/Position_Challenger-Top.png';
 import JungleIcon from '../../assets/icons/ranked-positions/Position_Challenger-Jungle.png';
@@ -114,11 +112,3 @@ const RecruitRegister = () => {
 };
 
 export default RecruitRegister;
-// export default connect(
-//     state => ({
-//         value: state,
-//     }),
-//     {
-//         function,
-//     },
-// )(RecruitRegister);
