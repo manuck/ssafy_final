@@ -5,6 +5,8 @@ import RecruitDetail from '../components/recruit/RecruitDetail';
 import './Main.scss';
 import Push from 'push.js'
 
+import { useDispatch, useSelector } from 'react-redux';
+
 const Main = () => {
  
     const [user, setUser] = useState({});
@@ -103,6 +105,7 @@ const Main = () => {
         }
     }
 
+    const modalDetail = useSelector( state => state.modal );
     return (
         // <div className="home">
         //     <div className="content">
@@ -113,7 +116,7 @@ const Main = () => {
         <div className="home">
             <RecruitRegister/>
             <RecruitList/>
-            <RecruitDetail/>
+            <RecruitDetail data={modalDetail}/>
         </div>
     );
 };
