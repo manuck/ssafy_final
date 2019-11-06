@@ -71,7 +71,6 @@ const Main = () => {
             }
         });
         await res.json().then(data => {
-            console.log(data.errors)
             if (!data.errors) {
                 setRecruit(data.data.getRecruitmentByUserID);
             }
