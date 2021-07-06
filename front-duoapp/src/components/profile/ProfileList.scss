@@ -1,0 +1,46 @@
+.profile {
+    .profile__list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        // min-height: 400px;
+        max-width: 350px;
+        padding: 15px;
+        margin: auto;
+        background-color: #222222;
+        border: 1px solid #ccaa77;
+        .title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #f7f7f7;
+        }
+        .content {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            display: flex;
+            padding: 10px 0;
+            .profile__card {
+                display: flex;
+                height: 50px;
+                width: 300px;
+                padding: 10px 20px;
+                margin: 10px;
+                border: 0;
+                border-left: 3px solid #ccaa77;
+                border-radius: 0;
+                background-color: #333333;
+                color: #f7f7f7;
+                &:hover {
+                    cursor: pointer;
+                    background-color: #444444;
+                }
+            }
+            .no__profile {
+                color: #f7f7f7;
+            }
+        }
+    }
+}

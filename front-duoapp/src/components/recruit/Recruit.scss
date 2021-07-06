@@ -1,0 +1,133 @@
+.recruit__each {
+    display: flex;
+    // flex-direction: column;
+    // flex: auto;
+    // width: 80%;
+    // height: 180px;
+    padding: 20px;
+    margin: 20px auto;
+    // background-color: #fdfdfd;
+    background-color: #111111;
+    border: 1px solid #ccaa77;
+    color: #f7f7f7;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.1);
+    > div {
+        display: flex;
+        // flex-direction: column;
+        align-items: center; 
+        // margin: 10px 0;
+    }
+    .column1 {
+        flex-direction: column;
+        width: 140px;
+        margin-right: 10px;
+        .emblem {
+            width: 80px;
+            height: 80px;
+            // border: 1px solid black;
+            margin-bottom: 10px;
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .tier {
+            font-weight: 700;
+        }
+    }
+    .column2 {
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 10px;
+        width: 75px;
+        .position__emblem {
+            display: flex;
+            align-items: center;
+            width: 50px;
+            height: 80px;
+            margin-bottom: 10px;
+            img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        .position {
+            font-weight: 700;
+            // border: 1px solid black;
+        }
+    }
+    .column3 {
+        display: flex;
+        width: 180px;
+        .records {
+            // width: 500px;
+            // height: 80px;
+            // border: 1px solid black;
+            font-weight: 700;
+            margin: 0 20px;
+            .record{
+                display: flex;
+                align-items: center;
+                // border: 1px solid black;
+                .champion {
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin-right: 8px;
+                    img {
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+                .result {
+                    display: flex;
+                    justify-content: center;
+                    >span {
+                        // line-height: 23px;
+                    }
+                    .win {
+                        color: #1870a9;
+                    }
+                    .lose {
+                        color: #d63d5d;
+                    }
+                }
+                .score {
+                    display: flex;
+                    width: 80px;
+                    align-items: center;
+                    justify-content: center;;
+                    span {
+                        width: 10px;
+                        font-weight: 500;
+                        font-size: 12px;
+                        text-align: center;                        
+                    }
+                }   
+            }
+        }
+    }
+    .column4 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 95px;
+        margin-right: 10px;
+        .status {
+            .waiting {
+                font-weight: 700;
+                color: #1eb52e;
+            }
+            // border: 1px solid black;
+        }    
+        .submit {
+            font-size: 14px;
+            padding: 6px 16px;
+        }
+    }
+}
+.modal--show {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
